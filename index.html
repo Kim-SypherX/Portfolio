@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Yempounti Kim Josaphat Geoffroi YARGA - Développeur Full-Stack & Creative Technologist">
+    <meta name="author" content="Yempounti Kim Josaphat Geoffroi YARGA">
+    <meta property="og:title" content="Yempounti Kim Josaphat Geoffroi YARGA - Portfolio">
+    <meta property="og:description"
+        content="Portfolio 3D interactif ultra-haut de gamme présentant une technologie créative de pointe">
+    <meta property="og:type" content="website">
+
+    <title>Yempounti Kim Josaphat Geoffroi YARGA | Creative Technologist</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor">
+        <div class="cursor-glow"></div>
+    </div>
+    <canvas id="cursor-trail"></canvas>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">INITIALIZING</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <div class="loading-percentage">0%</div>
+        </div>
+    </div>
+
+    <!-- 3D Canvas -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-logo">YKJG</div>
+        <ul class="nav-links">
+            <li><a href="#hero" data-nav-link>ACCUEIL</a></li>
+            <li><a href="#about" data-nav-link>À PROPOS</a></li>
+            <li><a href="#skills" data-nav-link>COMPÉTENCES</a></li>
+            <li><a href="#projects" data-nav-link>PROJETS</a></li>
+            <li><a href="#contact" data-nav-link>CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="section hero-section">
+            <div class="hero-content">
+                <div class="hero-subtitle glitch" data-text="DÉVELOPPEUR FULL-STACK / CREATIVE TECHNOLOGIST">DÉVELOPPEUR
+                    FULL-STACK / CREATIVE TECHNOLOGIST</div>
+                <h1 class="hero-title" id="hero-name">
+                    <span class="name-line">YEMPOUNTI KIM</span>
+                    <span class="name-line">JOSAPHAT GEOFFROI YARGA</span>
+                </h1>
+                <div class="hero-tagline">Concevoir le futur, un pixel à la fois</div>
+                <div class="hero-cta">
+                    <a href="#projects" class="cta-button">
+                        <span class="cta-text">EXPLORER MES PROJETS</span>
+                        <span class="cta-glow"></span>
+                    </a>
+                </div>
+            </div>
+            <div id="hero-3d-container"></div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section about-section">
+            <div class="section-header">
+                <h2 class="section-title">À PROPOS</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-panel" data-panel="1">
+                    <div class="panel-inner">
+                        <h3 class="panel-title">QUI JE SUIS</h3>
+                        <p class="panel-text">
+                            Développeur full-stack et creative technologist spécialisé dans les expériences numériques
+                            immersives.
+                            J'architecture l'impossible et j'ingénie l'extraordinaire.
+                        </p>
+                    </div>
+                </div>
+                <div class="about-panel" data-panel="2">
+                    <div class="panel-inner">
+                        <h3 class="panel-title">CE QUE JE FAIS</h3>
+                        <p class="panel-text">
+                            Conception d'expériences web de pointe avec WebGL, Three.js et programmation shader avancée.
+                            Repousser les limites du possible dans le navigateur.
+                        </p>
+                    </div>
+                </div>
+                <div class="about-panel" data-panel="3">
+                    <div class="panel-inner">
+                        <h3 class="panel-title">MON APPROCHE</h3>
+                        <p class="panel-text">
+                            Obsédé par la performance. Orienté vers le détail. Guidé par l'innovation.
+                            Chaque projet est une pièce maîtresse, conçue pour dominer.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id="about-3d-container"></div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section skills-section">
+            <div class="section-header">
+                <h2 class="section-title">COMPÉTENCES</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="skills-content">
+                <div class="skill-category">
+                    <h3 class="category-title">INGÉNIERIE &amp; LOGIQUE</h3>
+                    <div class="skill-items">
+                        <div class="skill-item" data-skill="problem">
+                            <div class="skill-icon">⬢</div>
+                            <div class="skill-name">Résolution de problèmes complexes</div>
+                            <div class="skill-level" data-level="95"></div>
+                        </div>
+                        <div class="skill-item" data-skill="architecture">
+                            <div class="skill-icon">◆</div>
+                            <div class="skill-name">Architecture logicielle</div>
+                            <div class="skill-level" data-level="92"></div>
+                        </div>
+                        <div class="skill-item" data-skill="optimization">
+                            <div class="skill-icon">▲</div>
+                            <div class="skill-name">Optimisation des performances</div>
+                            <div class="skill-level" data-level="90"></div>
+                        </div>
+                        <div class="skill-item" data-skill="security">
+                            <div class="skill-icon">●</div>
+                            <div class="skill-name">Sécurité applicative</div>
+                            <div class="skill-level" data-level="88"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="category-title">DÉVELOPPEMENT BACK-END</h3>
+                    <div class="skill-items">
+                        <div class="skill-item" data-skill="java">
+                            <div class="skill-icon">◇</div>
+                            <div class="skill-name">Java / Spring Boot</div>
+                            <div class="skill-level" data-level="94"></div>
+                        </div>
+                        <div class="skill-item" data-skill="api">
+                            <div class="skill-icon">◈</div>
+                            <div class="skill-name">API REST / JPA Hibernate</div>
+                            <div class="skill-level" data-level="92"></div>
+                        </div>
+                        <div class="skill-item" data-skill="auth">
+                            <div class="skill-icon">◉</div>
+                            <div class="skill-name">Authentification JWT</div>
+                            <div class="skill-level" data-level="90"></div>
+                        </div>
+                        <div class="skill-item" data-skill="deployment">
+                            <div class="skill-icon">◎</div>
+                            <div class="skill-name">Déploiement Linux</div>
+                            <div class="skill-level" data-level="87"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="category-title">DÉVELOPPEMENT FRONT-END</h3>
+                    <div class="skill-items">
+                        <div class="skill-item" data-skill="html">
+                            <div class="skill-icon">⬢</div>
+                            <div class="skill-name">HTML5 / CSS3 / JavaScript ES6+</div>
+                            <div class="skill-level" data-level="98"></div>
+                        </div>
+                        <div class="skill-item" data-skill="responsive">
+                            <div class="skill-icon">◆</div>
+                            <div class="skill-name">Interfaces responsives</div>
+                            <div class="skill-level" data-level="96"></div>
+                        </div>
+                        <div class="skill-item" data-skill="dom">
+                            <div class="skill-icon">▲</div>
+                            <div class="skill-name">Manipulation DOM / APIs</div>
+                            <div class="skill-level" data-level="94"></div>
+                        </div>
+                        <div class="skill-item" data-skill="dashboard">
+                            <div class="skill-icon">●</div>
+                            <div class="skill-name">Tableaux de bord</div>
+                            <div class="skill-level" data-level="92"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="category-title">UI/UX &amp; DESIGN VISUEL</h3>
+                    <div class="skill-items">
+                        <div class="skill-item" data-skill="cyber">
+                            <div class="skill-icon">◇</div>
+                            <div class="skill-name">Design cyber &amp; futuriste</div>
+                            <div class="skill-level" data-level="96"></div>
+                        </div>
+                        <div class="skill-item" data-skill="glass">
+                            <div class="skill-icon">◈</div>
+                            <div class="skill-name">Glassmorphism</div>
+                            <div class="skill-level" data-level="94"></div>
+                        </div>
+                        <div class="skill-item" data-skill="typo">
+                            <div class="skill-icon">◉</div>
+                            <div class="skill-name">Hiérarchie typographique</div>
+                            <div class="skill-level" data-level="92"></div>
+                        </div>
+                        <div class="skill-item" data-skill="micro">
+                            <div class="skill-icon">◎</div>
+                            <div class="skill-name">Micro-interactions</div>
+                            <div class="skill-level" data-level="95"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="category-title">WEB CRÉATIF &amp; 3D</h3>
+                    <div class="skill-items">
+                        <div class="skill-item" data-skill="threejs">
+                            <div class="skill-icon">⬢</div>
+                            <div class="skill-name">Three.js / WebGL</div>
+                            <div class="skill-level" data-level="93"></div>
+                        </div>
+                        <div class="skill-item" data-skill="3dscenes">
+                            <div class="skill-icon">◆</div>
+                            <div class="skill-name">Scènes 3D interactives</div>
+                            <div class="skill-level" data-level="90"></div>
+                        </div>
+                        <div class="skill-item" data-skill="shaders">
+                            <div class="skill-icon">▲</div>
+                            <div class="skill-name">Effets hologramme &amp; glitch</div>
+                            <div class="skill-level" data-level="88"></div>
+                        </div>
+                        <div class="skill-item" data-skill="3danim">
+                            <div class="skill-icon">●</div>
+                            <div class="skill-name">Animations 3D optimisées</div>
+                            <div class="skill-level" data-level="91"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="category-title">BASES DE DONNÉES</h3>
+                    <div class="skill-items">
+                        <div class="skill-item" data-skill="modeling">
+                            <div class="skill-icon">◇</div>
+                            <div class="skill-name">Modélisation relationnelle</div>
+                            <div class="skill-level" data-level="92"></div>
+                        </div>
+                        <div class="skill-item" data-skill="postgres">
+                            <div class="skill-icon">◈</div>
+                            <div class="skill-name">PostgreSQL</div>
+                            <div class="skill-level" data-level="90"></div>
+                        </div>
+                        <div class="skill-item" data-skill="integrity">
+                            <div class="skill-icon">◉</div>
+                            <div class="skill-name">Intégrité des données</div>
+                            <div class="skill-level" data-level="89"></div>
+                        </div>
+                        <div class="skill-item" data-skill="migration">
+                            <div class="skill-icon">◎</div>
+                            <div class="skill-name">Migration de bases</div>
+                            <div class="skill-level" data-level="87"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="category-title">RÉSEAUX &amp; SYSTÈMES</h3>
+                    <div class="skill-items">
+                        <div class="skill-item" data-skill="linux">
+                            <div class="skill-icon">⬢</div>
+                            <div class="skill-name">Administration Linux</div>
+                            <div class="skill-level" data-level="88"></div>
+                        </div>
+                        <div class="skill-item" data-skill="network">
+                            <div class="skill-icon">◆</div>
+                            <div class="skill-name">Réseaux locaux (IP, DHCP, DNS)</div>
+                            <div class="skill-level" data-level="85"></div>
+                        </div>
+                        <div class="skill-item" data-skill="mikrotik">
+                            <div class="skill-icon">▲</div>
+                            <div class="skill-name">Configuration MikroTik</div>
+                            <div class="skill-level" data-level="83"></div>
+                        </div>
+                        <div class="skill-item" data-skill="servers">
+                            <div class="skill-icon">●</div>
+                            <div class="skill-name">Maintenance serveurs</div>
+                            <div class="skill-level" data-level="86"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="category-title">OUTILS &amp; DEVOPS</h3>
+                    <div class="skill-items">
+                        <div class="skill-item" data-skill="git">
+                            <div class="skill-icon">◇</div>
+                            <div class="skill-name">Git / GitHub</div>
+                            <div class="skill-level" data-level="94"></div>
+                        </div>
+                        <div class="skill-item" data-skill="cli">
+                            <div class="skill-icon">◈</div>
+                            <div class="skill-name">Ligne de commande Linux</div>
+                            <div class="skill-level" data-level="91"></div>
+                        </div>
+                        <div class="skill-item" data-skill="cloud">
+                            <div class="skill-icon">◉</div>
+                            <div class="skill-name">Déploiement cloud (AWS EC2)</div>
+                            <div class="skill-level" data-level="87"></div>
+                        </div>
+                        <div class="skill-item" data-skill="config">
+                            <div class="skill-icon">◎</div>
+                            <div class="skill-name">Configuration environnements</div>
+                            <div class="skill-level" data-level="89"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="skills-manifesto">
+                <p class="manifesto-text">
+                    Je ne me contente pas d'écrire du code.<br>
+                    Je conçois des systèmes, des expériences et des machines numériques.
+                </p>
+            </div>
+            <div id="skills-3d-container"></div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section projects-section">
+            <div class="section-header">
+                <h2 class="section-title">PROJETS</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="projects-grid">
+                <article class="project-card" data-project="1">
+                    <div class="project-image">
+                        <img src="assets/images/project-agrostock.png" alt="AgroStock">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">AGROSTOCK</h3>
+                        <p class="project-description">
+                            Application web de gestion de stock et de production agricole. Suivi d'inventaire, workflows
+                            de production et organisation des données.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Java</span>
+                            <span class="tag">Spring Boot</span>
+                            <span class="tag">PostgreSQL</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card" data-project="2">
+                    <div class="project-image">
+                        <img src="assets/images/project-university.png" alt="Site Universitaire">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">SITE UNIVERSITAIRE</h3>
+                        <p class="project-description">
+                            Site web développé pour mon université. Focus sur la structure, la présentation du contenu,
+                            le responsive et l'utilisabilité.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">HTML/CSS</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Responsive</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card" data-project="3">
+                    <div class="project-image">
+                        <img src="assets/images/project-tickets.png" alt="Réservation de Billets">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">RÉSERVATION DE BILLETS</h3>
+                        <p class="project-description">
+                            Application web de réservation et gestion de billets. Formulaires, workflows et interactions
+                            utilisateur.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Java</span>
+                            <span class="tag">Spring MVC</span>
+                            <span class="tag">Forms</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card" data-project="4">
+                    <div class="project-image">
+                        <img src="assets/images/project-blockchain.png" alt="Crypto Tracker">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">CRYPTO TRACKER</h3>
+                        <p class="project-description">
+                            Plateforme web de suivi d'investissements en cryptomonnaies et évolution du portefeuille.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">API</span>
+                            <span class="tag">Charts</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card" data-project="5">
+                    <div class="project-image">
+                        <img src="assets/images/project-neural.png" alt="Ping Game">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">PING GAME</h3>
+                        <p class="project-description">
+                            Jeu simple développé en Java pour pratiquer la logique de jeu et les interactions.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Java</span>
+                            <span class="tag">Game Logic</span>
+                            <span class="tag">Swing</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card" data-project="6">
+                    <div class="project-image">
+                        <img src="assets/images/project-quantum.png" alt="Jeux JavaScript">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">JEUX JAVASCRIPT</h3>
+                        <p class="project-description">
+                            Petits jeux navigateur développés en JavaScript pour l'expérimentation et l'apprentissage.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Canvas</span>
+                            <span class="tag">DOM</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div id="projects-3d-container"></div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section contact-section">
+            <div class="section-header">
+                <h2 class="section-title">CONTACT</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="contact-content">
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <span class="terminal-button red"></span>
+                            <span class="terminal-button yellow"></span>
+                            <span class="terminal-button green"></span>
+                        </div>
+                        <div class="terminal-title">contact.sh</div>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-text">./initiate_contact.sh</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-output">Établissement de la connexion sécurisée...</span>
+                        </div>
+                        <form id="contact-form" class="contact-form">
+                            <div class="form-group">
+                                <label for="name" class="form-label">
+                                    <span class="terminal-prompt">$</span> NOM
+                                </label>
+                                <input type="text" id="name" name="name" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">
+                                    <span class="terminal-prompt">$</span> EMAIL
+                                </label>
+                                <input type="email" id="email" name="email" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message" class="form-label">
+                                    <span class="terminal-prompt">$</span> MESSAGE
+                                </label>
+                                <textarea id="message" name="message" class="form-input" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="submit-button">
+                                <span class="button-text">TRANSMETTRE</span>
+                                <span class="button-glow"></span>
+                            </button>
+                        </form>
+                        <div id="form-response" class="terminal-response"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="contact-3d-container"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p class="footer-text">© 2026 Yempounti Kim Josaphat Geoffroi YARGA. Élite par conception.</p>
+            <div class="footer-links">
+                <a href="#" class="footer-link">GitHub</a>
+                <a href="#" class="footer-link">LinkedIn</a>
+                <a href="#" class="footer-link">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/cursor.js"></script>
+    <script src="js/loader.js"></script>
+    <script src="js/shaders/glitch.js"></script>
+    <script src="js/shaders/hologram.js"></script>
+    <script src="js/shaders/neon.js"></script>
+    <script src="js/scene.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/hero.js"></script>
+    <script src="js/about.js"></script>
+    <script src="js/skills.js"></script>
+    <script src="js/projects.js"></script>
+    <script src="js/contact.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
