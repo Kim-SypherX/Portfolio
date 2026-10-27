@@ -5,252 +5,391 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV - Yempounti Kim Josaphat Geoffroi YARGA | Développeur Full Stack</title>
+    <meta name="description" content="CV de Josaphat YARGA, développeur full stack passionné basé à Bobo-Dioulasso, Burkina Faso. Spécialisé en Java Spring Boot, React, Node.js, Django et Intelligence Artificielle.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="cv-styles.css">
 </head>
 
 <body>
-    <div class="cv-container">
-        <!-- Header -->
-        <header class="cv-header">
-            <div class="header-content">
-                <h1 class="name">Yempounti Kim Josaphat Geoffroi YARGA</h1>
-                <h2 class="title">Développeur Full Stack | Creative Technologist</h2>
+    <div class="cv-page">
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <!-- Photo -->
+            <div class="photo-wrapper">
+                <img src="photo_cv_cropped.jpeg" alt="Josaphat YARGA" class="photo">
             </div>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <span class="icon">📧</span>
-                    <span>yargajosaphat@gmail.com</span>
-                </div>
-                <div class="contact-item">
-                    <span class="icon">📱</span>
-                    <span>+226 53 96 75 34/+226 65 18 92 61</span>
-                </div>
-                <div class="contact-item">
-                    <span class="icon">🔗</span>
-                    <span>linkedin.com/in/josaphat-yarga</span>
-                </div>
-                <div class="contact-item">
-                    <span class="icon">🌐</span>
-                    <span>https://kim-sypherx.github.io/Portfolio/</span>
-                </div>
-            </div>
-        </header>
 
-        <!-- Profile -->
-        <section class="cv-section">
-            <h3 class="section-title">PROFIL</h3>
-            <div class="section-content">
+            <!-- Name & Title -->
+            <div class="sidebar-identity">
+                <h1 class="sidebar-name">Josaphat<br>YARGA</h1>
+                <p class="sidebar-title">Développeur Full Stack</p>
+            </div>
+
+            <!-- Contact -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-heading">Contact</h3>
+                <div class="contact-list">
+                    <div class="contact-row">
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13L2 4"/></svg>
+                        <span>yargajosaphat@gmail.com</span>
+                    </div>
+                    <div class="contact-row">
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92V21a2 2 0 01-2.18 2 19.86 19.86 0 01-8.63-3.07A19.5 19.5 0 013.07 8.63 19.86 19.86 0 011 2.18 2 2 0 013 0h4.09a2 2 0 012 1.72c.12.96.36 1.9.7 2.81a2 2 0 01-.45 2.11l-1.27 1.27a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0122 16.92z"/></svg>
+                        <span>+226 53 96 75 34<br>+226 65 18 92 61</span>
+                    </div>
+                    <div class="contact-row">
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>Bobo-Dioulasso, Burkina Faso</span>
+                    </div>
+                    <div class="contact-row">
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 01-12 0 6 6 0 0112 0z"/><path d="M2 21a8 8 0 0116 0"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+                        <span>linkedin.com/in/<br>josaphat-yarga</span>
+                    </div>
+                    <div class="contact-row">
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                        <span>kim-sypherx.github.io<br>/Portfolio</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compétences Techniques -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-heading">Stack Technique</h3>
+                <div class="skills-bars">
+                    <div class="skill-bar-item">
+                        <span class="skill-label">Java / Spring Boot</span>
+                        <div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div>
+                    </div>
+                    <div class="skill-bar-item">
+                        <span class="skill-label">JavaScript / React</span>
+                        <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+                    </div>
+                    <div class="skill-bar-item">
+                        <span class="skill-label">Node.js / Express</span>
+                        <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+                    </div>
+                    <div class="skill-bar-item">
+                        <span class="skill-label">Python / Django</span>
+                        <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+                    </div>
+                    <div class="skill-bar-item">
+                        <span class="skill-label">PostgreSQL / MySQL</span>
+                        <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+                    </div>
+                    <div class="skill-bar-item">
+                        <span class="skill-label">React Native / Expo</span>
+                        <div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div>
+                    </div>
+                    <div class="skill-bar-item">
+                        <span class="skill-label">Docker / DevOps</span>
+                        <div class="skill-bar"><div class="skill-fill" style="width:68%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technologies -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-heading">Technologies</h3>
+                <div class="tags-cloud">
+                    <span class="tag">Spring Boot</span>
+                    <span class="tag">React.js</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">Django</span>
+                    <span class="tag">Socket.IO</span>
+                    <span class="tag">Three.js</span>
+                    <span class="tag">MediaPipe</span>
+                    <span class="tag">TensorFlow.js</span>
+                    <span class="tag">WebSocket</span>
+                    <span class="tag">JWT</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">AWS EC2</span>
+                    <span class="tag">Git</span>
+                    <span class="tag">Linux</span>
+                    <span class="tag">Flyway</span>
+                    <span class="tag">OpenCV</span>
+                </div>
+            </div>
+
+            <!-- Langues -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-heading">Langues</h3>
+                <div class="lang-item">
+                    <span class="lang-name">Français</span>
+                    <div class="lang-dots">
+                        <span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span>
+                    </div>
+                </div>
+                <div class="lang-item">
+                    <span class="lang-name">Anglais</span>
+                    <div class="lang-dots">
+                        <span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot"></span><span class="dot"></span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="main-content">
+
+            <!-- Full name header (for print/large display) -->
+            <div class="main-header">
+                <h2 class="full-name">Yempounti Kim Josaphat Geoffroi <span class="accent">YARGA</span></h2>
+                <p class="subtitle-line">Développeur Full Stack · Creative Technologist</p>
+                <div class="header-line"></div>
+            </div>
+
+            <!-- Profil -->
+            <section class="main-section">
+                <h3 class="section-title">
+                    <span class="section-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </span>
+                    Profil
+                </h3>
                 <p class="profile-text">
-                    Développeur full stack passionné par la création de solutions numériques concrètes et performantes.
-                    J'aime apprendre en pratiquant, expérimenter de nouvelles technologies et concevoir des applications
-                    bien structurées, évolutives et centrées sur l'expérience utilisateur.
+                    Développeur full stack passionné avec une expertise approfondie en <strong>Java Spring Boot</strong>, 
+                    <strong>React.js</strong>, <strong>Node.js</strong> et <strong>Python Django</strong>. Expérience concrète 
+                    dans la conception de plateformes complètes intégrant l'IA (MediaPipe, TensorFlow.js, LLM), 
+                    la communication temps réel (Socket.IO/WebSocket), et le déploiement cloud (AWS, Docker). 
+                    Fondateur de <strong>Nexus Code</strong>, une startup spécialisée en développement d'applications 
+                    web, mobile et desktop, je combine vision entrepreneuriale et excellence technique 
+                    pour livrer des solutions à fort impact.
                 </p>
-            </div>
-        </section>
+            </section>
 
-        <!-- Skills -->
-        <section class="cv-section">
-            <h3 class="section-title">COMPÉTENCES TECHNIQUES</h3>
-            <div class="section-content">
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h4 class="category-name">Backend</h4>
-                        <ul class="skill-list">
-                            <li><strong>Java :</strong> Spring Boot, API REST, JPA/Hibernate</li>
-                            <li><strong>Node.js :</strong> API RESTful (certifié Coursera)</li>
-                            <li><strong>Base de données :</strong> PostgreSQL, modélisation, optimisation</li>
+            <!-- Expérience Professionnelle -->
+            <section class="main-section">
+                <h3 class="section-title">
+                    <span class="section-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+                    </span>
+                    Expérience
+                </h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2025 – Présent</div>
+                        <h4 class="timeline-title">Fondateur & Lead Developer — <span class="accent">Nexus Code</span></h4>
+                        <p class="timeline-location">Startup de Développement Logiciel · Bobo-Dioulasso, Burkina Faso</p>
+                        <ul class="timeline-details">
+                            <li>Création et direction d'une startup spécialisée en développement d'applications web, mobile et desktop</li>
+                            <li>Conception d'architectures full stack (Spring Boot, React, Node.js, Django)</li>
+                            <li>Gestion de projets clients de bout en bout : cahier des charges, développement, déploiement</li>
+                            <li>Intégration d'IA et technologies modernes dans les solutions clients</li>
                         </ul>
                     </div>
-
-                    <div class="skill-category">
-                        <h4 class="category-name">Frontend</h4>
-                        <ul class="skill-list">
-                            <li><strong>HTML5, CSS3, JavaScript (ES6+)</strong></li>
-                            <li><strong>Certifications :</strong> JavaScript (Intermediate) & Python (Basic) –
-                                HackerRank</li>
-                            <li><strong>Graphismes interactifs :</strong> Three.js, WebGL</li>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2026 – Présent</div>
+                        <h4 class="timeline-title">Développeur Backend — <span class="accent">JAVEROO</span></h4>
+                        <p class="timeline-location">Agence Digitale · Bobo-Dioulasso, Burkina Faso</p>
+                        <ul class="timeline-details">
+                            <li>Développement du site vitrine premium avec Three.js, GSAP et animations avancées</li>
+                            <li>Conception de solutions e-commerce et sites web pour PME burkinabè</li>
+                            <li>Collaboration au sein d'une équipe de 6 experts multidisciplinaires</li>
                         </ul>
                     </div>
-
-                    <div class="skill-category">
-                        <h4 class="category-name">Outils & DevOps</h4>
-                        <ul class="skill-list">
-                            <li><strong>Contrôle de version :</strong> Git, GitHub</li>
-                            <li><strong>Environnement :</strong> Linux (ligne de commande), Bash</li>
-                            <li><strong>Déploiement :</strong> AWS EC2, configuration serveur</li>
-                        </ul>
-                    </div>
-
-                    <div class="skill-category">
-                        <h4 class="category-name">Réseaux & Infrastructure</h4>
-                        <ul class="skill-list">
-                            <li><strong>Administration réseau :</strong> LAN, DHCP, DNS, MikroTik</li>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Fév. 2026 – Mai 2026</div>
+                        <h4 class="timeline-title">Stagiaire Développeur (Fin de cycle) — <span class="accent">Nafa Vision</span></h4>
+                        <p class="timeline-location">Société de Services Digitaux · Bobo-Dioulasso, Burkina Faso</p>
+                        <ul class="timeline-details">
+                            <li>Stage pratique de 3 mois axé sur le développement d'applications professionnelles</li>
+                            <li>Amélioration des compétences techniques en environnement réel de production</li>
+                            <li>Collaboration sur des architectures logicielles et déploiements</li>
                         </ul>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Certifications -->
-        <section class="cv-section">
-            <h3 class="section-title">CERTIFICATIONS</h3>
-            <div class="section-content">
-                <div class="certifications-list">
-                    <div class="cert-item">
-                        <div class="cert-name">APIs in Node.js: Write a RESTful API Backend Application</div>
-                        <div class="cert-details">Coursera Project Network • Octobre 2025</div>
+            <!-- Éducation -->
+            <section class="main-section">
+                <h3 class="section-title">
+                    <span class="section-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12.5V16a6 6 0 0012 0v-3.5"/></svg>
+                    </span>
+                    Éducation
+                </h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2023 – Présent</div>
+                        <h4 class="timeline-title">Licence en Informatique (L3)</h4>
+                        <p class="timeline-location">École Supérieure de l'Informatique (ESI) · Bobo-Dioulasso</p>
+                        <p class="timeline-details">Cycle Licence en fin de parcours (3ème année) · Spécialisation en développement logiciel et systèmes d'information.</p>
                     </div>
-                    <div class="cert-item">
+                </div>
+            </section>
+
+            <!-- Projets -->
+            <section class="main-section">
+                <h3 class="section-title">
+                    <span class="section-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    </span>
+                    Projets Clés
+                </h3>
+
+                <div class="project-card featured">
+                    <div class="project-card-header">
+                        <h4 class="project-title">FITMOD — Plateforme de Couture Intelligente</h4>
+                        <span class="project-badge">Full Stack + IA</span>
+                    </div>
+                    <div class="project-stack">React.js (Vite) · Node.js/Express · Socket.IO · MediaPipe · TensorFlow.js · MySQL</div>
+                    <p class="project-desc">
+                        Plateforme de mise en relation clients-tailleurs avec cabine d'essayage virtuelle par IA (prise de mensurations via webcam), 
+                        géolocalisation (formule de Haversine), chat temps réel avec messages vocaux, et système de commandes complet.
+                    </p>
+                </div>
+
+                <div class="project-card featured">
+                    <div class="project-card-header">
+                        <h4 class="project-title">Wilink PMU — Plateforme de Paris Sportifs</h4>
+                        <span class="project-badge">Full Stack</span>
+                    </div>
+                    <div class="project-stack">Spring Boot · React.js · PostgreSQL · Spring Security · JWT · WebSocket · Flyway · Docker</div>
+                    <p class="project-desc">
+                        Plateforme complète de paris sportifs avec frontend React, backend Spring Boot, authentification sécurisée, 
+                        gestion temps réel des cotes via WebSocket, migration de schéma avec Flyway et conteneurisation Docker.
+                    </p>
+                </div>
+
+                <div class="project-card featured">
+                    <div class="project-card-header">
+                        <h4 class="project-title">Suzi Tuteur IA — Plateforme Éducative Intelligente</h4>
+                        <span class="project-badge">Full Stack + Mobile</span>
+                    </div>
+                    <div class="project-stack">Python/Django · DRF · React.js · React Native/Expo · Groq API (Llama 3) · MySQL</div>
+                    <p class="project-desc">
+                        Application web et mobile d'assistance scolaire intégrant un tuteur IA (LLM Llama 3), 
+                        avec synchronisation hors ligne, JWT auth, et architecture multi-plateforme.
+                    </p>
+                </div>
+
+                <div class="projects-row">
+                    <div class="project-card small featured">
+                        <h4 class="project-title">Billet Réservé</h4>
+                        <div class="project-stack">Spring Boot · JPA · Maven</div>
+                        <p class="project-desc">Système de réservation de billets d'événements.</p>
+                    </div>
+                    <div class="project-card small featured">
+                        <h4 class="project-title">DBZ AR Experience</h4>
+                        <div class="project-stack">Python · OpenCV · MediaPipe</div>
+                        <p class="project-desc">Expérience AR Dragon Ball Z avec détection de poses et effets visuels temps réel.</p>
+                    </div>
+                    <div class="project-card small featured">
+                        <h4 class="project-title">AgroStock</h4>
+                        <div class="project-stack">Node.js · Express · PostgreSQL</div>
+                        <p class="project-desc">Application de gestion de stock et production agricole.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Certifications -->
+            <section class="main-section">
+                <h3 class="section-title">
+                    <span class="section-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                    </span>
+                    Certifications
+                </h3>
+                <div class="certs-grid">
+                    <div class="cert-card">
+                        <div class="cert-provider coursera">Coursera · Amazon</div>
+                        <div class="cert-name">Programming with Java</div>
+                        <div class="cert-date">Avr. 2026</div>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-provider coursera">Coursera · Meta</div>
+                        <div class="cert-name">Programming in Python</div>
+                        <div class="cert-date">Mars 2026</div>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-provider coursera">Coursera · IBM</div>
+                        <div class="cert-name">Introduction to Mobile App Development</div>
+                        <div class="cert-date">Mars 2026</div>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-provider coursera">Coursera · Google</div>
+                        <div class="cert-name">Foundations of Cybersecurity</div>
+                        <div class="cert-date">Mars 2026</div>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-provider coursera">Coursera</div>
+                        <div class="cert-name">APIs in Node.js: RESTful API Backend</div>
+                        <div class="cert-date">Oct. 2025</div>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-provider hackerrank">HackerRank</div>
                         <div class="cert-name">JavaScript (Intermediate)</div>
-                        <div class="cert-details">HackerRank • Février 2025</div>
+                        <div class="cert-date">Fév. 2025</div>
                     </div>
-                    <div class="cert-item">
+                    <div class="cert-card">
+                        <div class="cert-provider hackerrank">HackerRank</div>
+                        <div class="cert-name">JavaScript (Basic)</div>
+                        <div class="cert-date">Fév. 2025</div>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-provider hackerrank">HackerRank</div>
                         <div class="cert-name">Python (Basic)</div>
-                        <div class="cert-details">HackerRank • Février 2025</div>
+                        <div class="cert-date">Fév. 2025</div>
                     </div>
-                    <div class="cert-item">
-                        <div class="cert-name">Python avec FormationVideo</div>
-                        <div class="cert-details">Cursa • 18h33 • Septembre 2024</div>
+                    <div class="cert-card">
+                        <div class="cert-provider udemy">Udemy</div>
+                        <div class="cert-name">Développement Web Avancé</div>
+                        <div class="cert-date">2025</div>
                     </div>
-                    <div class="cert-item">
-                        <div class="cert-name">Logique de programmation</div>
-                        <div class="cert-details">Cursa • 1h21 • Septembre 2024</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects -->
-        <section class="cv-section">
-            <h3 class="section-title">PROJETS PERSONNELS</h3>
-            <div class="section-content">
-                <div class="projects-list">
-                    <div class="project-item">
-                        <div class="project-header">
-                            <h4 class="project-name">AgroStock</h4>
-                            <div class="project-tech">Spring Boot • PostgreSQL • React • Docker</div>
-                        </div>
-                        <p class="project-description">
-                            Application web de gestion de stock et de production agricole.
-                        </p>
-                    </div>
-
-                    <div class="project-item">
-                        <div class="project-header">
-                            <h4 class="project-name">Application de Suivi Crypto</h4>
-                            <div class="project-tech">Node.js • Express • Chart.js • API REST</div>
-                        </div>
-                        <p class="project-description">
-                            Suivi d'investissements et visualisation de l'évolution du portefeuille.
-                        </p>
-                    </div>
-
-                    <div class="project-item">
-                        <div class="project-header">
-                            <h4 class="project-name">Site Web Universitaire</h4>
-                            <div class="project-tech">HTML • CSS • JavaScript • PHP</div>
-                        </div>
-                        <p class="project-description">
-                            Conception et intégration d'un site institutionnel responsive.
-                        </p>
-                    </div>
-
-                    <div class="project-item">
-                        <div class="project-header">
-                            <h4 class="project-name">Jeu Ping en Java</h4>
-                            <div class="project-tech">Java • Swing</div>
-                        </div>
-                        <p class="project-description">
-                            Jeux interactifs développés pour pratiquer la logique algorithmique et les interactions
-                            utilisateur.
-                        </p>
-                    </div>
-
-                    <div class="project-item">
-                        <div class="project-header">
-                            <h4 class="project-name">Minijeux JavaScript</h4>
-                            <div class="project-tech">HTML5 Canvas • JavaScript</div>
-                        </div>
-                        <p class="project-description">
-                            Collection de petits jeux web développés pour l'apprentissage et le divertissement.
-                        </p>
+                    <div class="cert-card">
+                        <div class="cert-provider cursa">Cursa</div>
+                        <div class="cert-name">Python avec FormationVideo (18h)</div>
+                        <div class="cert-date">Sept. 2024</div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Tools & Environment -->
-        <section class="cv-section">
-            <h3 class="section-title">OUTILS & ENVIRONNEMENTS</h3>
-            <div class="section-content">
-                <div class="tools-grid">
-                    <div class="tool-group">
-                        <strong>Éditeurs :</strong> VS Code, IntelliJ IDEA
+            <!-- Outils & Environnement -->
+            <section class="main-section">
+                <h3 class="section-title">
+                    <span class="section-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+                    </span>
+                    Outils & Environnement
+                </h3>
+                <div class="tools-row">
+                    <div class="tool-chip">
+                        <strong>IDE</strong> VS Code · IntelliJ IDEA · Android Studio
                     </div>
-                    <div class="tool-group">
-                        <strong>Gestion de projet :</strong> GitHub Projects, Notion
+                    <div class="tool-chip">
+                        <strong>Gestion</strong> GitHub Projects · Notion
                     </div>
-                    <div class="tool-group">
-                        <strong>Serveurs :</strong> Ubuntu, Nginx, PM2
+                    <div class="tool-chip">
+                        <strong>Serveurs</strong> Ubuntu · Nginx · PM2
                     </div>
-                    <div class="tool-group">
-                        <strong>Cloud :</strong> AWS (EC2, S3), Firebase
+                    <div class="tool-chip">
+                        <strong>Cloud</strong> AWS (EC2, S3) · Firebase
+                    </div>
+                    <div class="tool-chip">
+                        <strong>Réseau</strong> LAN · DHCP · DNS · MikroTik
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Philosophy -->
-        <section class="cv-section philosophy-section">
-            <h3 class="section-title">PHILOSOPHIE DE TRAVAIL</h3>
-            <div class="section-content">
-                <blockquote class="philosophy-quote">
-                    "Je ne me contente pas d'écrire du code. Je construis, j'expérimente et j'améliore."
-                </blockquote>
-                <p class="philosophy-text">
-                    Je cherche continuellement à approfondir mes connaissances techniques et à les appliquer à des
-                    projets réels,
-                    avec un fort accent sur la qualité, la maintenabilité et l'impact utilisateur.
-                </p>
-            </div>
-        </section>
-
-        <!-- Languages -->
-        <section class="cv-section">
-            <h3 class="section-title">LANGUES</h3>
-            <div class="section-content">
-                <div class="languages-list">
-                    <div class="language-item">
-                        <strong>Français :</strong> Langue maternelle
-                    </div>
-                    <div class="language-item">
-                        <strong>Anglais :</strong> Technique (lu, écrit)
-                    </div>
-                    <div class="language-item">
-                        <strong>Portugais :</strong> Notions
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="cv-footer">
-            <p class="footer-text">
-                CV mis à jour le 13 janvier 2026 • Disponible pour des missions en full stack, développement backend ou
-                création d'applications interactives.
-            </p>
-        </footer>
+            <!-- Footer -->
+            <footer class="cv-footer">
+                <p class="footer-quote">"Je ne me contente pas d'écrire du code. Je construis, j'expérimente et j'améliore."</p>
+                <p class="footer-date">CV mis à jour le 20 mai 2026 · Disponible pour des missions full stack, backend ou création d'applications innovantes.</p>
+            </footer>
+        </main>
     </div>
 
-    <!-- Print Button (hidden when printing) -->
+    <!-- Print Button -->
     <div class="print-button-container no-print">
         <button onclick="window.print()" class="print-button">
-            📄 Télécharger en PDF
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;margin-right:8px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Télécharger en PDF
         </button>
     </div>
 </body>

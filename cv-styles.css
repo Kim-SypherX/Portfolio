@@ -1,31 +1,39 @@
 /* ========================================
-   CV MODERNE - STYLES
-   Optimisé pour impression PDF
+   CV PREMIUM — Josaphat YARGA
+   Design Moderne / 2 Colonnes / Print-ready
    ======================================== */
 
 /* ========== VARIABLES ========== */
 :root {
-    --color-primary: #2563eb;
-    --color-secondary: #1e40af;
-    --color-accent: #3b82f6;
-    --color-text: #1f2937;
-    --color-text-light: #6b7280;
-    --color-bg: #ffffff;
-    --color-border: #e5e7eb;
-    --color-section-bg: #f9fafb;
+    --sidebar-bg: #0f172a;
+    --sidebar-text: #e2e8f0;
+    --sidebar-accent: #38bdf8;
+    --sidebar-heading: #38bdf8;
+    --sidebar-muted: #94a3b8;
+
+    --main-bg: #ffffff;
+    --main-text: #1e293b;
+    --main-muted: #64748b;
+    --accent: #2563eb;
+    --accent-light: #3b82f6;
+    --accent-dark: #1d4ed8;
+    --accent-glow: rgba(37, 99, 235, 0.12);
+    --border: #e2e8f0;
+    --card-bg: #f8fafc;
+    --featured-border: #2563eb;
 
     --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-mono: 'JetBrains Mono', 'Courier New', monospace;
 
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 1.5rem;
-    --spacing-xl: 2rem;
+    --sidebar-width: 260px;
+    --page-width: 210mm;
+    --page-min-height: 297mm;
 }
 
-/* ========== RESET & BASE ========== */
-* {
+/* ========== RESET ========== */
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -33,401 +41,925 @@
 
 body {
     font-family: var(--font-main);
-    color: var(--color-text);
-    background: #f3f4f6;
-    line-height: 1.6;
+    color: var(--main-text);
+    background: #e2e8f0;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* ========== CV CONTAINER ========== */
-.cv-container {
-    max-width: 210mm;
-    /* A4 width */
-    min-height: 297mm;
-    /* A4 height */
-    margin: 2rem auto;
-    background: var(--color-bg);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    padding: 3rem;
+/* ========== PAGE CONTAINER ========== */
+.cv-page {
+    max-width: var(--page-width);
+    min-height: var(--page-min-height);
+    margin: 1.5rem auto;
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    background: var(--main-bg);
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.12),
+        0 4px 20px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
 }
 
-/* ========== HEADER ========== */
-.cv-header {
-    border-bottom: 3px solid var(--color-primary);
-    padding-bottom: var(--spacing-lg);
-    margin-bottom: var(--spacing-xl);
+/* ==============================================================
+   SIDEBAR
+   ============================================================== */
+.sidebar {
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    padding: 1.2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
 }
 
-.header-content {
-    margin-bottom: var(--spacing-lg);
+/* --- Photo --- */
+.photo-wrapper {
+    width: 130px;
+    height: 130px;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--sidebar-accent);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
 }
 
-.name {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--color-primary);
-    letter-spacing: -0.02em;
-    margin-bottom: var(--spacing-xs);
+.photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    display: block;
 }
 
-.title {
+/* --- Identity --- */
+.sidebar-identity {
+    text-align: center;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-name {
     font-size: 1.25rem;
-    font-weight: 400;
-    color: var(--color-text-light);
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 0.2rem;
+}
+
+.sidebar-title {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--sidebar-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+/* --- Section (sidebar) --- */
+.sidebar-section {
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sidebar-section:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.sidebar-heading {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--sidebar-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 0.6rem;
+}
+
+.sidebar-heading::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--sidebar-accent);
+    border-radius: 1px;
+}
+
+/* --- Contact --- */
+.contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.contact-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.65rem;
+    color: var(--sidebar-muted);
+    line-height: 1.35;
+}
+
+.contact-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    color: var(--sidebar-accent);
+    margin-top: 1px;
+}
+
+/* --- Skill Bars --- */
+.skills-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.skill-bar-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.skill-label {
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: var(--sidebar-text);
+}
+
+.skill-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.skill-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--sidebar-accent), #818cf8);
+    border-radius: 2px;
+    transition: width 1s ease;
+}
+
+/* --- Tags Cloud --- */
+.tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.tag {
+    font-size: 0.55rem;
+    font-weight: 500;
+    padding: 0.15rem 0.4rem;
+    background: rgba(56, 189, 248, 0.1);
+    color: var(--sidebar-accent);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: 3px;
     letter-spacing: 0.01em;
 }
 
-.contact-info {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-sm) var(--spacing-lg);
+/* --- Languages --- */
+.lang-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.3rem;
 }
 
-.contact-item {
+.lang-name {
+    font-size: 0.65rem;
+    font-weight: 500;
+}
+
+.lang-dots {
+    display: flex;
+    gap: 3px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid var(--sidebar-accent);
+    background: transparent;
+}
+
+.dot.filled {
+    background: var(--sidebar-accent);
+}
+
+/* ==============================================================
+   MAIN CONTENT
+   ============================================================== */
+.main-content {
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+/* --- Main Header --- */
+.main-header {
+    margin-bottom: 0.15rem;
+}
+
+.full-name {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--main-text);
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+}
+
+.full-name .accent {
+    color: var(--accent);
+}
+
+.subtitle-line {
+    font-size: 0.8rem;
+    color: var(--main-muted);
+    font-weight: 400;
+    margin-top: 0.15rem;
+}
+
+.header-line {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+    border-radius: 2px;
+    margin-top: 0.5rem;
+}
+
+/* --- Section Title --- */
+.section-title {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    font-size: 0.9rem;
-    color: var(--color-text);
-}
-
-.contact-item .icon {
-    font-size: 1rem;
-}
-
-/* ========== SECTIONS ========== */
-.cv-section {
-    margin-bottom: var(--spacing-xl);
-    page-break-inside: avoid;
-}
-
-.section-title {
-    font-size: 1.1rem;
+    gap: 0.4rem;
+    font-size: 0.85rem;
     font-weight: 700;
-    color: var(--color-primary);
+    color: var(--accent);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: var(--spacing-md);
-    padding-bottom: var(--spacing-sm);
-    border-bottom: 2px solid var(--color-border);
+    letter-spacing: 0.06em;
+    padding-bottom: 0.35rem;
+    border-bottom: 1.5px solid var(--border);
+    margin-bottom: 0.5rem;
 }
 
-.section-content {
-    padding-left: var(--spacing-sm);
+.section-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: var(--accent-glow);
+    border-radius: 4px;
+    flex-shrink: 0;
 }
 
-/* ========== PROFILE ========== */
+.section-icon svg {
+    width: 12px;
+    height: 12px;
+    color: var(--accent);
+}
+
+/* --- Profile --- */
 .profile-text {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: var(--color-text);
+    font-size: 0.75rem;
+    line-height: 1.55;
+    color: var(--main-text);
     text-align: justify;
 }
 
-/* ========== SKILLS ========== */
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-lg);
-}
-
-.skill-category {
-    background: var(--color-section-bg);
-    padding: var(--spacing-md);
-    border-radius: 6px;
-    border-left: 3px solid var(--color-accent);
-}
-
-.category-name {
-    font-size: 1rem;
+.profile-text strong {
+    color: var(--accent-dark);
     font-weight: 600;
-    color: var(--color-secondary);
-    margin-bottom: var(--spacing-sm);
 }
 
-.skill-list {
-    list-style: none;
-    font-size: 0.9rem;
-}
-
-.skill-list li {
-    margin-bottom: var(--spacing-sm);
-    padding-left: var(--spacing-md);
+/* --- Timeline (Experience) --- */
+.timeline {
     position: relative;
-    line-height: 1.6;
+    padding-left: 1rem;
 }
 
-.skill-list li::before {
-    content: "▸";
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 6px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent), transparent);
+    border-radius: 1px;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 0.2rem;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -1rem;
+    top: 5px;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    border: 2px solid var(--main-bg);
+    box-shadow: 0 0 0 2px var(--accent);
+    margin-left: 0px;
+}
+
+.timeline-date {
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    margin-bottom: 0.15rem;
+}
+
+.timeline-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--main-text);
+    line-height: 1.3;
+}
+
+.timeline-title .accent {
+    color: var(--accent);
+}
+
+.timeline-location {
+    font-size: 0.65rem;
+    color: var(--main-muted);
+    margin-bottom: 0.25rem;
+}
+
+.timeline-details {
+    list-style: none;
+    font-size: 0.7rem;
+    color: var(--main-text);
+}
+
+.timeline-details li {
+    padding-left: 0.8rem;
+    position: relative;
+    margin-bottom: 0.15rem;
+    line-height: 1.4;
+}
+
+.timeline-details li::before {
+    content: '▹';
     position: absolute;
     left: 0;
-    color: var(--color-accent);
+    color: var(--accent);
     font-weight: bold;
+    font-size: 0.75rem;
 }
 
-/* ========== CERTIFICATIONS ========== */
-.certifications-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-}
-
-.cert-item {
-    padding: var(--spacing-md);
-    background: var(--color-section-bg);
+/* --- Projects --- */
+.project-card {
+    padding: 0.55rem 0.7rem;
+    background: var(--card-bg);
     border-radius: 6px;
-    border-left: 3px solid var(--color-accent);
+    border: 1px solid var(--border);
+    margin-bottom: 0.45rem;
+    transition: border-color 0.2s;
 }
+
+.project-card.featured {
+    border-left: 3px solid var(--featured-border);
+}
+
+.project-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.2rem;
+}
+
+.project-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--main-text);
+    line-height: 1.25;
+}
+
+.project-badge {
+    font-size: 0.5rem;
+    font-weight: 600;
+    padding: 0.12rem 0.4rem;
+    background: var(--accent-glow);
+    color: var(--accent);
+    border: 1px solid rgba(37, 99, 235, 0.2);
+    border-radius: 3px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.project-stack {
+    font-size: 0.6rem;
+    color: var(--main-muted);
+    font-family: var(--font-mono);
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+}
+
+.project-desc {
+    font-size: 0.68rem;
+    color: var(--main-text);
+    line-height: 1.45;
+}
+
+.projects-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+}
+
+.project-card.small {
+    margin-bottom: 0;
+}
+
+.project-card.small .project-title {
+    font-size: 0.72rem;
+    margin-bottom: 0.1rem;
+}
+
+.project-card.small .project-desc {
+    font-size: 0.62rem;
+}
+
+/* --- Certifications --- */
+.certs-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.3rem;
+}
+
+.cert-card {
+    padding: 0.3rem 0.4rem;
+    background: var(--card-bg);
+    border-radius: 4px;
+    border: 1px solid var(--border);
+}
+
+.cert-provider {
+    font-size: 0.45rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.1rem;
+}
+
+.cert-provider.coursera { color: #0056d2; }
+.cert-provider.hackerrank { color: #1ba94c; }
+.cert-provider.cursa { color: #e67e22; }
+.cert-provider.udemy { color: #a435f0; }
 
 .cert-name {
+    font-size: 0.56rem;
     font-weight: 600;
-    color: var(--color-text);
-    margin-bottom: var(--spacing-xs);
-    font-size: 0.95rem;
+    color: var(--main-text);
+    line-height: 1.25;
+    margin-bottom: 0.08rem;
 }
 
-.cert-details {
-    font-size: 0.85rem;
-    color: var(--color-text-light);
+.cert-date {
+    font-size: 0.5rem;
+    color: var(--main-muted);
     font-family: var(--font-mono);
 }
 
-/* ========== PROJECTS ========== */
-.projects-list {
+/* --- Tools --- */
+.tools-row {
     display: flex;
-    flex-direction: column;
-    gap: var(--spacing-lg);
-}
-
-.project-item {
-    padding: var(--spacing-md);
-    background: var(--color-section-bg);
-    border-radius: 6px;
-    border-left: 3px solid var(--color-accent);
-}
-
-.project-header {
-    margin-bottom: var(--spacing-sm);
-}
-
-.project-name {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-secondary);
-    margin-bottom: var(--spacing-xs);
-}
-
-.project-tech {
-    font-size: 0.8rem;
-    color: var(--color-text-light);
-    font-family: var(--font-mono);
-}
-
-.project-description {
-    font-size: 0.9rem;
-    color: var(--color-text);
-    line-height: 1.6;
-}
-
-/* ========== TOOLS ========== */
-.tools-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-md);
-}
-
-.tool-group {
-    font-size: 0.9rem;
-    padding: var(--spacing-sm);
-    background: var(--color-section-bg);
-    border-radius: 4px;
-}
-
-.tool-group strong {
-    color: var(--color-secondary);
-}
-
-/* ========== PHILOSOPHY ========== */
-.philosophy-section {
-    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-    padding: var(--spacing-lg);
-    border-radius: 8px;
-    border: 1px solid var(--color-border);
-}
-
-.philosophy-quote {
-    font-size: 1.1rem;
-    font-weight: 600;
-    font-style: italic;
-    color: var(--color-primary);
-    margin-bottom: var(--spacing-md);
-    padding-left: var(--spacing-lg);
-    border-left: 4px solid var(--color-accent);
-}
-
-.philosophy-text {
-    font-size: 0.9rem;
-    line-height: 1.7;
-    color: var(--color-text);
-}
-
-/* ========== LANGUAGES ========== */
-.languages-list {
-    display: flex;
-    gap: var(--spacing-lg);
     flex-wrap: wrap;
+    gap: 0.3rem;
 }
 
-.language-item {
-    font-size: 0.9rem;
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: var(--color-section-bg);
+.tool-chip {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
     border-radius: 4px;
+    line-height: 1.35;
 }
 
-.language-item strong {
-    color: var(--color-secondary);
+.tool-chip strong {
+    color: var(--accent-dark);
+    margin-right: 0.3rem;
 }
 
-/* ========== FOOTER ========== */
+/* --- Footer --- */
 .cv-footer {
-    margin-top: var(--spacing-xl);
-    padding-top: var(--spacing-lg);
-    border-top: 2px solid var(--color-border);
+    margin-top: auto;
+    padding-top: 0.5rem;
+    border-top: 1.5px solid var(--border);
     text-align: center;
 }
 
-.footer-text {
-    font-size: 0.85rem;
-    color: var(--color-text-light);
+.footer-quote {
+    font-size: 0.72rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+}
+
+.footer-date {
+    font-size: 0.6rem;
+    color: var(--main-muted);
     font-style: italic;
 }
 
-/* ========== PRINT BUTTON ========== */
+/* ==============================================================
+   PRINT BUTTON (screen only)
+   ============================================================== */
 .print-button-container {
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 1.5rem;
+    right: 1.5rem;
     z-index: 1000;
 }
 
 .print-button {
-    background: var(--color-primary);
-    color: white;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    color: #fff;
     border: none;
-    padding: 1rem 2rem;
-    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+    box-shadow:
+        0 8px 25px rgba(37, 99, 235, 0.35),
+        0 2px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     font-family: var(--font-main);
 }
 
 .print-button:hover {
-    background: var(--color-secondary);
     transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(37, 99, 235, 0.4);
+    box-shadow:
+        0 12px 30px rgba(37, 99, 235, 0.45),
+        0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .print-button:active {
     transform: translateY(0);
 }
 
-/* ========== PRINT STYLES ========== */
+/* ==============================================================
+   PRINT STYLES — Force 2-column layout on single A4 page
+   ============================================================== */
 @media print {
     @page {
-        size: A4;
+        size: A4 portrait;
         margin: 0;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
     }
 
     body {
-        background: white;
-    }
-
-    .cv-container {
-        max-width: 100%;
+        background: white !important;
         margin: 0;
-        padding: 1.5cm;
-        box-shadow: none;
-        min-height: auto;
+        padding: 0;
     }
 
     .no-print {
         display: none !important;
     }
 
-    .cv-section {
+    /* === FORCE 2-COLUMN GRID === */
+    .cv-page {
+        display: grid !important;
+        grid-template-columns: 200px 1fr !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        min-height: auto !important;
+        overflow: visible !important;
+    }
+
+    /* === SIDEBAR — compact for print === */
+    .sidebar {
+        background: #0f172a !important;
+        padding: 0.6rem 0.5rem !important;
+        gap: 0.35rem !important;
+    }
+
+    .photo-wrapper {
+        width: 85px !important;
+        height: 85px !important;
+        border-color: #38bdf8 !important;
+        border-width: 2px !important;
+    }
+
+    .sidebar-name {
+        font-size: 0.85rem !important;
+    }
+
+    .sidebar-title {
+        font-size: 0.5rem !important;
+    }
+
+    .sidebar-heading {
+        font-size: 0.5rem !important;
+        margin-bottom: 0.2rem !important;
+    }
+
+    .contact-row {
+        font-size: 0.5rem !important;
+        gap: 0.25rem !important;
+    }
+
+    .contact-icon {
+        width: 10px !important;
+        height: 10px !important;
+    }
+
+    .skill-label {
+        font-size: 0.45rem !important;
+    }
+
+    .skill-bar {
+        height: 3px !important;
+    }
+
+    .tag {
+        font-size: 0.4rem !important;
+        padding: 0.08rem 0.2rem !important;
+    }
+
+    .lang-name {
+        font-size: 0.5rem !important;
+    }
+
+    .dot {
+        width: 6px !important;
+        height: 6px !important;
+    }
+
+    .dot.filled {
+        background: #38bdf8 !important;
+    }
+
+    .sidebar-section {
+        padding-bottom: 0.2rem !important;
+    }
+
+    .sidebar-identity {
+        padding-bottom: 0.2rem !important;
+    }
+
+    .skills-bars {
+        gap: 0.15rem !important;
+    }
+
+    .contact-list {
+        gap: 0.2rem !important;
+    }
+
+    .lang-item {
+        margin-bottom: 0.15rem !important;
+    }
+
+    .tags-cloud {
+        gap: 0.15rem !important;
+    }
+
+    /* === MAIN CONTENT — compact for print === */
+    .main-content {
+        padding: 0.6rem 0.9rem !important;
+        gap: 0.35rem !important;
+    }
+
+    .main-header {
+        margin-bottom: 0 !important;
+    }
+
+    .full-name {
+        font-size: 1.05rem !important;
+    }
+
+    .subtitle-line {
+        font-size: 0.58rem !important;
+    }
+
+    .header-line {
+        width: 35px !important;
+        height: 2px !important;
+        margin-top: 0.2rem !important;
+    }
+
+    .section-title {
+        font-size: 0.62rem !important;
+        padding-bottom: 0.15rem !important;
+        margin-bottom: 0.2rem !important;
+        gap: 0.25rem !important;
+    }
+
+    .section-icon {
+        width: 14px !important;
+        height: 14px !important;
+    }
+
+    .section-icon svg {
+        width: 9px !important;
+        height: 9px !important;
+    }
+
+    .profile-text {
+        font-size: 0.58rem !important;
+        line-height: 1.35 !important;
+    }
+
+    /* Timeline compact */
+    .timeline {
+        padding-left: 0.7rem !important;
+    }
+
+    .timeline-date {
+        font-size: 0.45rem !important;
+        margin-bottom: 0 !important;
+    }
+
+    .timeline-title {
+        font-size: 0.6rem !important;
+    }
+
+    .timeline-location {
+        font-size: 0.48rem !important;
+        margin-bottom: 0.08rem !important;
+    }
+
+    .timeline-details {
+        font-size: 0.52rem !important;
+    }
+
+    .timeline-details li {
+        margin-bottom: 0.03rem !important;
+        line-height: 1.2 !important;
+        padding-left: 0.5rem !important;
+    }
+
+    .timeline-item {
+        padding-bottom: 0.08rem !important;
+    }
+
+    .timeline-dot {
+        width: 5px !important;
+        height: 5px !important;
+        left: -0.7rem !important;
+    }
+
+    /* Projects compact */
+    .project-card {
+        padding: 0.25rem 0.4rem !important;
+        margin-bottom: 0.15rem !important;
+    }
+
+    .project-title {
+        font-size: 0.6rem !important;
+    }
+
+    .project-badge {
+        font-size: 0.4rem !important;
+        padding: 0.08rem 0.3rem !important;
+    }
+
+    .project-stack {
+        font-size: 0.43rem !important;
+        margin-bottom: 0.08rem !important;
+    }
+
+    .project-desc {
+        font-size: 0.5rem !important;
+        line-height: 1.25 !important;
+    }
+
+    .projects-row {
+        gap: 0.15rem !important;
+    }
+
+    .project-card.small .project-title {
+        font-size: 0.52rem !important;
+    }
+
+    .project-card.small .project-desc {
+        font-size: 0.42rem !important;
+    }
+
+    .project-card.small .project-stack {
+        font-size: 0.38rem !important;
+    }
+
+    /* Certifications compact */
+    .certs-grid {
+        grid-template-columns: repeat(5, 1fr) !important;
+        gap: 0.2rem !important;
+    }
+
+    .cert-card {
+        padding: 0.15rem 0.2rem !important;
+    }
+
+    .cert-provider {
+        font-size: 0.35rem !important;
+    }
+
+    .cert-name {
+        font-size: 0.45rem !important;
+        line-height: 1.15 !important;
+    }
+
+    .cert-date {
+        font-size: 0.35rem !important;
+    }
+
+    /* Tools compact */
+    .tools-row {
+        gap: 0.2rem !important;
+    }
+
+    .tool-chip {
+        font-size: 0.5rem !important;
+        padding: 0.15rem 0.3rem !important;
+    }
+
+    /* Footer compact */
+    .cv-footer {
+        padding-top: 0.15rem !important;
+        margin-top: 0.1rem !important;
+    }
+
+    .footer-quote {
+        font-size: 0.52rem !important;
+    }
+
+    .footer-date {
+        font-size: 0.45rem !important;
+    }
+
+    /* Page break control */
+    .main-section {
         page-break-inside: avoid;
     }
 
-    .project-item,
-    .cert-item {
+    .project-card,
+    .cert-card,
+    .timeline-item {
         page-break-inside: avoid;
-    }
-
-    /* Optimize colors for print */
-    .philosophy-section {
-        background: #f9fafb;
-        border: 1px solid #e5e7eb;
-    }
-
-    .skill-category,
-    .cert-item,
-    .project-item,
-    .tool-group,
-    .language-item {
-        background: #f9fafb;
-    }
-
-    /* Ensure text is black for better print quality */
-    body,
-    .profile-text,
-    .project-description,
-    .philosophy-text {
-        color: #000000;
-    }
-
-    .section-title,
-    .name {
-        color: #1e40af;
     }
 }
 
-/* ========== RESPONSIVE ========== */
+/* ==============================================================
+   RESPONSIVE (mobile preview)
+   ============================================================== */
 @media (max-width: 768px) {
-    .cv-container {
+    .cv-page {
+        grid-template-columns: 1fr;
         margin: 0;
+    }
+
+    .sidebar {
         padding: 1.5rem;
-        box-shadow: none;
     }
 
-    .name {
-        font-size: 2rem;
+    .main-content {
+        padding: 1.5rem;
     }
 
-    .title {
-        font-size: 1.1rem;
-    }
-
-    .contact-info {
+    .projects-row {
         grid-template-columns: 1fr;
     }
 
-    .skills-grid,
-    .tools-grid {
-        grid-template-columns: 1fr;
+    .certs-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .print-button-container {
         bottom: 1rem;
         right: 1rem;
-    }
-
-    .print-button {
-        padding: 0.75rem 1.5rem;
-        font-size: 0.9rem;
     }
 }

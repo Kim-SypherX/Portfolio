@@ -1,549 +1,474 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Yempounti Kim Josaphat Geoffroi YARGA - Développeur Full-Stack & Creative Technologist">
-    <meta name="author" content="Yempounti Kim Josaphat Geoffroi YARGA">
-    <meta property="og:title" content="Yempounti Kim Josaphat Geoffroi YARGA - Portfolio">
-    <meta property="og:description"
-        content="Portfolio 3D interactif ultra-haut de gamme présentant une technologie créative de pointe">
-    <meta property="og:type" content="website">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kim Josaphat YARGA — Développeur Full Stack & CEO de QUANTIS</title>
+  <meta name="description"
+    content="Portfolio de Kim Josaphat YARGA, développeur Full Stack et Creative Technologist à Bobo-Dioulasso (Burkina Faso). Spring Boot, React, Node.js, Flutter, IA locale, Three.js et vision par ordinateur.">
+  <meta name="author" content="Yempounti Kim Josaphat Geoffroi YARGA">
+  <meta name="theme-color" content="#05060b">
+  <meta property="og:title" content="Kim Josaphat YARGA — Développeur Full Stack & Creative Technologist">
+  <meta property="og:description"
+    content="Plateformes full stack, assistants IA locaux, expériences 3D et vision par ordinateur.">
+  <meta property="og:image" content="assets/img/profile.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%238b5cf6'/><stop offset='1' stop-color='%2322d3ee'/></linearGradient></defs><rect width='64' height='64' rx='16' fill='%2305060b'/><text x='50%25' y='56%25' font-family='Arial Black,Arial' font-size='28' font-weight='900' fill='url(%23g)' text-anchor='middle' dominant-baseline='middle'>KY</text></svg>">
 
-    <title>Yempounti Kim Josaphat Geoffroi YARGA | Creative Technologist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="preload" as="image" href="assets/img/profile.webp" type="image/webp">
+  <link rel="stylesheet" href="styles.css">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="styles.css">
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }
+  </script>
 </head>
 
 <body>
-    <!-- Custom Cursor -->
-    <div class="cursor">
-        <div class="cursor-glow"></div>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+
+  <!-- ===== LOADER ===== -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <div class="loader__logo">KY<span>.</span></div>
+      <div class="loader__bar"><span id="loader-bar"></span></div>
+      <div class="loader__count"><span id="loader-count">0</span>%</div>
     </div>
-    <canvas id="cursor-trail"></canvas>
+  </div>
 
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <div class="loading-text">INITIALIZING</div>
-            <div class="loading-bar">
-                <div class="loading-progress"></div>
-            </div>
-            <div class="loading-percentage">0%</div>
-        </div>
-    </div>
+  <!-- ===== CURSEUR ===== -->
+  <div class="cursor" aria-hidden="true">
+    <div class="cursor__dot"></div>
+    <div class="cursor__ring"><span class="cursor__label"></span></div>
+  </div>
+  <div class="scroll-progress" aria-hidden="true"></div>
 
-    <!-- 3D Canvas -->
-    <canvas id="webgl-canvas"></canvas>
-
-    <!-- Navigation -->
-    <nav class="main-nav">
-        <div class="nav-logo">YKJG</div>
-        <ul class="nav-links">
-            <li><a href="#hero" data-nav-link>ACCUEIL</a></li>
-            <li><a href="#about" data-nav-link>À PROPOS</a></li>
-            <li><a href="#skills" data-nav-link>COMPÉTENCES</a></li>
-            <li><a href="#projects" data-nav-link>PROJETS</a></li>
-            <li><a href="#contact" data-nav-link>CONTACT</a></li>
-        </ul>
+  <!-- ===== NAVIGATION ===== -->
+  <header class="nav" id="nav">
+    <a href="#hero" class="nav__logo" id="nav-logo" aria-label="Accueil">KY<span>.</span></a>
+    <nav class="nav__links" id="nav-links" aria-label="Navigation principale">
+      <a href="#about" data-link>À propos</a>
+      <a href="#experience" data-link>Parcours</a>
+      <a href="#projects" data-link>Projets</a>
+      <a href="#skills" data-link>Stack</a>
+      <a href="#certifications" data-link>Certifications</a>
+      <a href="#contact" data-link>Contact</a>
     </nav>
+    <div class="nav__actions">
+      <a href="assets/docs/CV-Kim-Josaphat-YARGA.pdf" class="btn btn--ghost btn--sm" id="nav-cv" download data-magnetic>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3v12m0 0 5-5m-5 5-5-5M4 21h16" />
+        </svg>CV
+      </a>
+      <button class="nav__burger" id="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false"
+        aria-controls="nav-links"><span></span><span></span></button>
+    </div>
+  </header>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section id="hero" class="section hero-section">
-            <div class="hero-content">
-                <div class="hero-subtitle glitch" data-text="DÉVELOPPEUR FULL-STACK / CREATIVE TECHNOLOGIST">DÉVELOPPEUR
-                    FULL-STACK / CREATIVE TECHNOLOGIST</div>
-                <h1 class="hero-title" id="hero-name">
-                    <span class="name-line">YEMPOUNTI KIM</span>
-                    <span class="name-line">JOSAPHAT GEOFFROI YARGA</span>
-                </h1>
-                <div class="hero-tagline">Concevoir le futur, un pixel à la fois</div>
-                <div class="hero-cta">
-                    <a href="#projects" class="cta-button">
-                        <span class="cta-text">EXPLORER MES PROJETS</span>
-                        <span class="cta-glow"></span>
-                    </a>
-                </div>
-            </div>
-            <div id="hero-3d-container"></div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="section about-section">
-            <div class="section-header">
-                <h2 class="section-title">À PROPOS</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="about-content">
-                <div class="about-panel" data-panel="1">
-                    <div class="panel-inner">
-                        <h3 class="panel-title">QUI JE SUIS</h3>
-                        <p class="panel-text">
-                            Développeur full-stack et creative technologist spécialisé dans les expériences numériques
-                            immersives.
-                            J'architecture l'impossible et j'ingénie l'extraordinaire.
-                        </p>
-                    </div>
-                </div>
-                <div class="about-panel" data-panel="2">
-                    <div class="panel-inner">
-                        <h3 class="panel-title">CE QUE JE FAIS</h3>
-                        <p class="panel-text">
-                            Conception d'expériences web de pointe avec WebGL, Three.js et programmation shader avancée.
-                            Repousser les limites du possible dans le navigateur.
-                        </p>
-                    </div>
-                </div>
-                <div class="about-panel" data-panel="3">
-                    <div class="panel-inner">
-                        <h3 class="panel-title">MON APPROCHE</h3>
-                        <p class="panel-text">
-                            Obsédé par la performance. Orienté vers le détail. Guidé par l'innovation.
-                            Chaque projet est une pièce maîtresse, conçue pour dominer.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div id="about-3d-container"></div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="section skills-section">
-            <div class="section-header">
-                <h2 class="section-title">COMPÉTENCES</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="skills-content">
-                <div class="skill-category">
-                    <h3 class="category-title">INGÉNIERIE &amp; LOGIQUE</h3>
-                    <div class="skill-items">
-                        <div class="skill-item" data-skill="problem">
-                            <div class="skill-icon">⬢</div>
-                            <div class="skill-name">Résolution de problèmes complexes</div>
-                            <div class="skill-level" data-level="95"></div>
-                        </div>
-                        <div class="skill-item" data-skill="architecture">
-                            <div class="skill-icon">◆</div>
-                            <div class="skill-name">Architecture logicielle</div>
-                            <div class="skill-level" data-level="92"></div>
-                        </div>
-                        <div class="skill-item" data-skill="optimization">
-                            <div class="skill-icon">▲</div>
-                            <div class="skill-name">Optimisation des performances</div>
-                            <div class="skill-level" data-level="90"></div>
-                        </div>
-                        <div class="skill-item" data-skill="security">
-                            <div class="skill-icon">●</div>
-                            <div class="skill-name">Sécurité applicative</div>
-                            <div class="skill-level" data-level="88"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="category-title">DÉVELOPPEMENT BACK-END</h3>
-                    <div class="skill-items">
-                        <div class="skill-item" data-skill="java">
-                            <div class="skill-icon">◇</div>
-                            <div class="skill-name">Java / Spring Boot</div>
-                            <div class="skill-level" data-level="94"></div>
-                        </div>
-                        <div class="skill-item" data-skill="api">
-                            <div class="skill-icon">◈</div>
-                            <div class="skill-name">API REST / JPA Hibernate</div>
-                            <div class="skill-level" data-level="92"></div>
-                        </div>
-                        <div class="skill-item" data-skill="auth">
-                            <div class="skill-icon">◉</div>
-                            <div class="skill-name">Authentification JWT</div>
-                            <div class="skill-level" data-level="90"></div>
-                        </div>
-                        <div class="skill-item" data-skill="deployment">
-                            <div class="skill-icon">◎</div>
-                            <div class="skill-name">Déploiement Linux</div>
-                            <div class="skill-level" data-level="87"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="category-title">DÉVELOPPEMENT FRONT-END</h3>
-                    <div class="skill-items">
-                        <div class="skill-item" data-skill="html">
-                            <div class="skill-icon">⬢</div>
-                            <div class="skill-name">HTML5 / CSS3 / JavaScript ES6+</div>
-                            <div class="skill-level" data-level="98"></div>
-                        </div>
-                        <div class="skill-item" data-skill="responsive">
-                            <div class="skill-icon">◆</div>
-                            <div class="skill-name">Interfaces responsives</div>
-                            <div class="skill-level" data-level="96"></div>
-                        </div>
-                        <div class="skill-item" data-skill="dom">
-                            <div class="skill-icon">▲</div>
-                            <div class="skill-name">Manipulation DOM / APIs</div>
-                            <div class="skill-level" data-level="94"></div>
-                        </div>
-                        <div class="skill-item" data-skill="dashboard">
-                            <div class="skill-icon">●</div>
-                            <div class="skill-name">Tableaux de bord</div>
-                            <div class="skill-level" data-level="92"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="category-title">UI/UX &amp; DESIGN VISUEL</h3>
-                    <div class="skill-items">
-                        <div class="skill-item" data-skill="cyber">
-                            <div class="skill-icon">◇</div>
-                            <div class="skill-name">Design cyber &amp; futuriste</div>
-                            <div class="skill-level" data-level="96"></div>
-                        </div>
-                        <div class="skill-item" data-skill="glass">
-                            <div class="skill-icon">◈</div>
-                            <div class="skill-name">Glassmorphism</div>
-                            <div class="skill-level" data-level="94"></div>
-                        </div>
-                        <div class="skill-item" data-skill="typo">
-                            <div class="skill-icon">◉</div>
-                            <div class="skill-name">Hiérarchie typographique</div>
-                            <div class="skill-level" data-level="92"></div>
-                        </div>
-                        <div class="skill-item" data-skill="micro">
-                            <div class="skill-icon">◎</div>
-                            <div class="skill-name">Micro-interactions</div>
-                            <div class="skill-level" data-level="95"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="category-title">WEB CRÉATIF &amp; 3D</h3>
-                    <div class="skill-items">
-                        <div class="skill-item" data-skill="threejs">
-                            <div class="skill-icon">⬢</div>
-                            <div class="skill-name">Three.js / WebGL</div>
-                            <div class="skill-level" data-level="93"></div>
-                        </div>
-                        <div class="skill-item" data-skill="3dscenes">
-                            <div class="skill-icon">◆</div>
-                            <div class="skill-name">Scènes 3D interactives</div>
-                            <div class="skill-level" data-level="90"></div>
-                        </div>
-                        <div class="skill-item" data-skill="shaders">
-                            <div class="skill-icon">▲</div>
-                            <div class="skill-name">Effets hologramme &amp; glitch</div>
-                            <div class="skill-level" data-level="88"></div>
-                        </div>
-                        <div class="skill-item" data-skill="3danim">
-                            <div class="skill-icon">●</div>
-                            <div class="skill-name">Animations 3D optimisées</div>
-                            <div class="skill-level" data-level="91"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="category-title">BASES DE DONNÉES</h3>
-                    <div class="skill-items">
-                        <div class="skill-item" data-skill="modeling">
-                            <div class="skill-icon">◇</div>
-                            <div class="skill-name">Modélisation relationnelle</div>
-                            <div class="skill-level" data-level="92"></div>
-                        </div>
-                        <div class="skill-item" data-skill="postgres">
-                            <div class="skill-icon">◈</div>
-                            <div class="skill-name">PostgreSQL</div>
-                            <div class="skill-level" data-level="90"></div>
-                        </div>
-                        <div class="skill-item" data-skill="integrity">
-                            <div class="skill-icon">◉</div>
-                            <div class="skill-name">Intégrité des données</div>
-                            <div class="skill-level" data-level="89"></div>
-                        </div>
-                        <div class="skill-item" data-skill="migration">
-                            <div class="skill-icon">◎</div>
-                            <div class="skill-name">Migration de bases</div>
-                            <div class="skill-level" data-level="87"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="category-title">RÉSEAUX &amp; SYSTÈMES</h3>
-                    <div class="skill-items">
-                        <div class="skill-item" data-skill="linux">
-                            <div class="skill-icon">⬢</div>
-                            <div class="skill-name">Administration Linux</div>
-                            <div class="skill-level" data-level="88"></div>
-                        </div>
-                        <div class="skill-item" data-skill="network">
-                            <div class="skill-icon">◆</div>
-                            <div class="skill-name">Réseaux locaux (IP, DHCP, DNS)</div>
-                            <div class="skill-level" data-level="85"></div>
-                        </div>
-                        <div class="skill-item" data-skill="mikrotik">
-                            <div class="skill-icon">▲</div>
-                            <div class="skill-name">Configuration MikroTik</div>
-                            <div class="skill-level" data-level="83"></div>
-                        </div>
-                        <div class="skill-item" data-skill="servers">
-                            <div class="skill-icon">●</div>
-                            <div class="skill-name">Maintenance serveurs</div>
-                            <div class="skill-level" data-level="86"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="category-title">OUTILS &amp; DEVOPS</h3>
-                    <div class="skill-items">
-                        <div class="skill-item" data-skill="git">
-                            <div class="skill-icon">◇</div>
-                            <div class="skill-name">Git / GitHub</div>
-                            <div class="skill-level" data-level="94"></div>
-                        </div>
-                        <div class="skill-item" data-skill="cli">
-                            <div class="skill-icon">◈</div>
-                            <div class="skill-name">Ligne de commande Linux</div>
-                            <div class="skill-level" data-level="91"></div>
-                        </div>
-                        <div class="skill-item" data-skill="cloud">
-                            <div class="skill-icon">◉</div>
-                            <div class="skill-name">Déploiement cloud (AWS EC2)</div>
-                            <div class="skill-level" data-level="87"></div>
-                        </div>
-                        <div class="skill-item" data-skill="config">
-                            <div class="skill-icon">◎</div>
-                            <div class="skill-name">Configuration environnements</div>
-                            <div class="skill-level" data-level="89"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="skills-manifesto">
-                <p class="manifesto-text">
-                    Je ne me contente pas d'écrire du code.<br>
-                    Je conçois des systèmes, des expériences et des machines numériques.
-                </p>
-            </div>
-            <div id="skills-3d-container"></div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="section projects-section">
-            <div class="section-header">
-                <h2 class="section-title">PROJETS</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="projects-grid">
-                <article class="project-card" data-project="1">
-                    <div class="project-image">
-                        <img src="assets/images/project-agrostock.png" alt="AgroStock">
-                        <div class="project-overlay"></div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">AGROSTOCK</h3>
-                        <p class="project-description">
-                            Application web de gestion de stock et de production agricole. Suivi d'inventaire, workflows
-                            de production et organisation des données.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">Java</span>
-                            <span class="tag">Spring Boot</span>
-                            <span class="tag">PostgreSQL</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card" data-project="2">
-                    <div class="project-image">
-                        <img src="assets/images/project-university.png" alt="Site Universitaire">
-                        <div class="project-overlay"></div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">SITE UNIVERSITAIRE</h3>
-                        <p class="project-description">
-                            Site web développé pour mon université. Focus sur la structure, la présentation du contenu,
-                            le responsive et l'utilisabilité.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">HTML/CSS</span>
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">Responsive</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card" data-project="3">
-                    <div class="project-image">
-                        <img src="assets/images/project-tickets.png" alt="Réservation de Billets">
-                        <div class="project-overlay"></div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">RÉSERVATION DE BILLETS</h3>
-                        <p class="project-description">
-                            Application web de réservation et gestion de billets. Formulaires, workflows et interactions
-                            utilisateur.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">Java</span>
-                            <span class="tag">Spring MVC</span>
-                            <span class="tag">Forms</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card" data-project="4">
-                    <div class="project-image">
-                        <img src="assets/images/project-blockchain.png" alt="Crypto Tracker">
-                        <div class="project-overlay"></div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">CRYPTO TRACKER</h3>
-                        <p class="project-description">
-                            Plateforme web de suivi d'investissements en cryptomonnaies et évolution du portefeuille.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">API</span>
-                            <span class="tag">Charts</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card" data-project="5">
-                    <div class="project-image">
-                        <img src="assets/images/project-neural.png" alt="Ping Game">
-                        <div class="project-overlay"></div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">PING GAME</h3>
-                        <p class="project-description">
-                            Jeu simple développé en Java pour pratiquer la logique de jeu et les interactions.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">Java</span>
-                            <span class="tag">Game Logic</span>
-                            <span class="tag">Swing</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card" data-project="6">
-                    <div class="project-image">
-                        <img src="assets/images/project-quantum.png" alt="Jeux JavaScript">
-                        <div class="project-overlay"></div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">JEUX JAVASCRIPT</h3>
-                        <p class="project-description">
-                            Petits jeux navigateur développés en JavaScript pour l'expérimentation et l'apprentissage.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">Canvas</span>
-                            <span class="tag">DOM</span>
-                        </div>
-                    </div>
-                </article>
-            </div>
-            <div id="projects-3d-container"></div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="section contact-section">
-            <div class="section-header">
-                <h2 class="section-title">CONTACT</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="contact-content">
-                <div class="terminal-container">
-                    <div class="terminal-header">
-                        <div class="terminal-buttons">
-                            <span class="terminal-button red"></span>
-                            <span class="terminal-button yellow"></span>
-                            <span class="terminal-button green"></span>
-                        </div>
-                        <div class="terminal-title">contact.sh</div>
-                    </div>
-                    <div class="terminal-body">
-                        <div class="terminal-line">
-                            <span class="terminal-prompt">$</span>
-                            <span class="terminal-text">./initiate_contact.sh</span>
-                        </div>
-                        <div class="terminal-line">
-                            <span class="terminal-output">Établissement de la connexion sécurisée...</span>
-                        </div>
-                        <form id="contact-form" class="contact-form">
-                            <div class="form-group">
-                                <label for="name" class="form-label">
-                                    <span class="terminal-prompt">$</span> NOM
-                                </label>
-                                <input type="text" id="name" name="name" class="form-input" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email" class="form-label">
-                                    <span class="terminal-prompt">$</span> EMAIL
-                                </label>
-                                <input type="email" id="email" name="email" class="form-input" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="message" class="form-label">
-                                    <span class="terminal-prompt">$</span> MESSAGE
-                                </label>
-                                <textarea id="message" name="message" class="form-input" rows="5" required></textarea>
-                            </div>
-                            <button type="submit" class="submit-button">
-                                <span class="button-text">TRANSMETTRE</span>
-                                <span class="button-glow"></span>
-                            </button>
-                        </form>
-                        <div id="form-response" class="terminal-response"></div>
-                    </div>
-                </div>
-            </div>
-            <div id="contact-3d-container"></div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="main-footer">
-        <div class="footer-content">
-            <p class="footer-text">© 2026 Yempounti Kim Josaphat Geoffroi YARGA. Élite par conception.</p>
-            <div class="footer-links">
-                <a href="#" class="footer-link">GitHub</a>
-                <a href="#" class="footer-link">LinkedIn</a>
-                <a href="#" class="footer-link">Twitter</a>
-            </div>
+  <main id="main">
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <canvas class="hero__canvas" id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero__grid" aria-hidden="true"></div>
+      <div class="container hero__content">
+        <p class="eyebrow hero__eyebrow" data-reveal><span class="pulse-dot"></span>Disponible pour missions ·
+          Bobo-Dioulasso, Burkina Faso</p>
+        <h1 class="hero__title" id="hero-title">
+          <span class="line" data-split>Kim Josaphat</span>
+          <span class="line line--grad" data-split>YARGA</span>
+        </h1>
+        <p class="hero__role" data-reveal>
+          Je conçois des <span class="rotator" id="role-rotator" aria-live="polite">plateformes full stack</span><span
+            class="caret" aria-hidden="true"></span>
+        </p>
+        <p class="hero__lead" data-reveal>Développeur Full Stack &amp; Creative Technologist, co-fondateur et CEO de
+          <strong>QUANTIS</strong>. Je transforme des idées ambitieuses en produits robustes : backends Spring Boot
+          &amp; Node.js, apps Flutter, IA locale et expériences 3D temps réel.</p>
+        <div class="hero__ctas" data-reveal>
+          <a href="#projects" class="btn btn--primary" id="hero-cta-projects" data-magnetic>Explorer mes projets
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14m0 0-6-6m6 6-6 6" />
+            </svg></a>
+          <a href="#contact" class="btn btn--ghost" id="hero-cta-contact" data-magnetic>Me contacter</a>
         </div>
-    </footer>
+      </div>
 
-    <!-- Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+      <aside class="hero__status glass" data-reveal aria-label="Statut actuel">
+        <div class="hero__status-row"><span class="pulse-dot"></span><span class="mono">STATUT · EN LIGNE</span></div>
+        <p><strong>CEO @ QUANTIS</strong><br><span class="muted">Backend Dev @ JAVEROO</span></p>
+        <div class="hero__status-tags"><span>Spring Boot</span><span>Flutter</span><span>IA</span></div>
+      </aside>
 
-    <!-- Custom Scripts -->
-    <script src="js/utils.js"></script>
-    <script src="js/cursor.js"></script>
-    <script src="js/loader.js"></script>
-    <script src="js/shaders/glitch.js"></script>
-    <script src="js/shaders/hologram.js"></script>
-    <script src="js/shaders/neon.js"></script>
-    <script src="js/scene.js"></script>
-    <script src="js/animations.js"></script>
-    <script src="js/hero.js"></script>
-    <script src="js/about.js"></script>
-    <script src="js/skills.js"></script>
-    <script src="js/projects.js"></script>
-    <script src="js/contact.js"></script>
-    <script src="js/main.js"></script>
+      <a href="#about" class="hero__scroll" id="hero-scroll" aria-label="Défiler vers la suite"><span></span></a>
+    </section>
+
+    <!-- ===== MARQUEE ===== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Spring
+          Boot</span><i>✦</i><span>React</span><i>✦</i><span>Node.js</span><i>✦</i><span>Flutter</span><i>✦</i><span>Three.js</span><i>✦</i><span>MediaPipe</span><i>✦</i><span>Django</span><i>✦</i><span>PostgreSQL</span><i>✦</i><span>Docker</span><i>✦</i><span>Ollama
+          · LLM</span><i>✦</i>
+        <span>Spring
+          Boot</span><i>✦</i><span>React</span><i>✦</i><span>Node.js</span><i>✦</i><span>Flutter</span><i>✦</i><span>Three.js</span><i>✦</i><span>MediaPipe</span><i>✦</i><span>Django</span><i>✦</i><span>PostgreSQL</span><i>✦</i><span>Docker</span><i>✦</i><span>Ollama
+          · LLM</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- ===== À PROPOS ===== -->
+    <section class="section about" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow" data-reveal>01 — À propos</p>
+          <h2 class="section__title" id="about-title" data-split>Je ne me contente pas d'écrire du code.<br><em>Je
+              construis.</em></h2>
+        </header>
+        <div class="about__grid">
+          <div class="about__text" data-reveal>
+            <p class="lead">Étudiant en Licence 3 Informatique à l'<strong>ESI de Bobo-Dioulasso</strong>, je conçois
+              des plateformes complètes de bout en bout : architecture, API, interfaces web &amp; mobile, déploiement.
+            </p>
+            <p>Mon terrain de jeu : intégrer l'<strong>intelligence artificielle</strong> (MediaPipe, TensorFlow.js, LLM
+              locaux), la <strong>communication temps réel</strong> (Socket.IO, WebSocket) et la <strong>3D</strong>
+              dans des produits utiles. En juillet 2026, j'ai co-fondé <strong>QUANTIS</strong>, une startup
+              d'ingénierie logicielle qui digitalise les entreprises du Burkina Faso.</p>
+            <blockquote class="quote">« Je construis, j'expérimente et j'améliore. »</blockquote>
+          </div>
+          <ul class="about__stats" role="list">
+            <li class="stat glass" data-reveal data-tilt><span class="stat__num" data-count="15">0</span><span
+                class="stat__plus">+</span><span class="stat__label">Projets réalisés</span></li>
+            <li class="stat glass" data-reveal data-tilt><span class="stat__num" data-count="16">0</span><span
+                class="stat__label">Certifications</span></li>
+            <li class="stat glass" data-reveal data-tilt><span class="stat__num" data-count="25">0</span><span
+                class="stat__plus">+</span><span class="stat__label">Technologies maîtrisées</span></li>
+            <li class="stat glass" data-reveal data-tilt><span class="stat__num" data-count="3">0</span><span
+                class="stat__label">Structures pro (startup, agence, stage)</span></li>
+          </ul>
+        </div>
+        <div class="pillars">
+          <article class="pillar glass" data-reveal data-tilt>
+            <div class="pillar__icon"><svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 7h16M4 12h16M4 17h10" />
+                <circle cx="19" cy="17" r="2" />
+              </svg></div>
+            <h3>Full Stack robuste</h3>
+            <p>Spring Boot, Node.js, Django · API REST sécurisées JWT · PostgreSQL / MySQL · Docker &amp; AWS.</p>
+          </article>
+          <article class="pillar glass" data-reveal data-tilt>
+            <div class="pillar__icon"><svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="3" />
+                <path d="M12 2v4m0 12v4M2 12h4m12 0h4M5 5l3 3m8 8 3 3M5 19l3-3m8-8 3-3" />
+              </svg></div>
+            <h3>IA &amp; Vision</h3>
+            <p>Assistants LLM locaux (Ollama), hand &amp; pose tracking MediaPipe, ML appliqué au trading.</p>
+          </article>
+          <article class="pillar glass" data-reveal data-tilt>
+            <div class="pillar__icon"><svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m12 2 9 5v10l-9 5-9-5V7z" />
+                <path d="m3 7 9 5 9-5M12 12v10" />
+              </svg></div>
+            <h3>3D &amp; Mobile</h3>
+            <p>Expériences WebGL Three.js, apps Flutter multi-plateformes (Web, Desktop, Android), React Native.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PARCOURS ===== -->
+    <section class="section experience" id="experience" aria-labelledby="exp-title">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow" data-reveal>02 — Parcours</p>
+          <h2 class="section__title" id="exp-title" data-split>Expérience &amp; formation</h2>
+        </header>
+        <ol class="timeline" id="timeline">
+          <li class="timeline__line" aria-hidden="true"><span id="timeline-fill"></span></li>
+          <li class="tl-item" data-reveal>
+            <div class="tl-item__dot"></div>
+            <div class="tl-item__card glass" data-tilt>
+              <span class="tl-item__date mono">Juil. 2026 — Présent</span>
+              <h3>Co-fondateur &amp; CEO — <span class="grad-text">QUANTIS</span></h3>
+              <p class="muted">Startup tech &amp; ingénierie logicielle · Bobo-Dioulasso</p>
+              <ul>
+                <li>Signature du pacte des 3 fondateurs, définition de la vision et des 7 principes</li>
+                <li>Lancement de Quantis-Stock (ERP Spring Boot + Flutter) et du site quantisbf.com</li>
+                <li>Offre : apps mobiles, ERP, web, réseaux, intégration d'IA</li>
+              </ul>
+            </div>
+          </li>
+          <li class="tl-item" data-reveal>
+            <div class="tl-item__dot"></div>
+            <div class="tl-item__card glass" data-tilt>
+              <span class="tl-item__date mono">2026 — Présent</span>
+              <h3>Développeur Backend — JAVEROO</h3>
+              <p class="muted">Agence digitale · Bobo-Dioulasso</p>
+              <ul>
+                <li>Site vitrine premium avec Three.js, GSAP et animations avancées</li>
+                <li>Solutions e-commerce et sites web pour PME burkinabè</li>
+                <li>Collaboration au sein d'une équipe de 6 experts</li>
+              </ul>
+            </div>
+          </li>
+          <li class="tl-item" data-reveal>
+            <div class="tl-item__dot"></div>
+            <div class="tl-item__card glass" data-tilt>
+              <span class="tl-item__date mono">Fév. 2026 — Mai 2026</span>
+              <h3>Stagiaire Développeur — Nafa Vision</h3>
+              <p class="muted">Société de services digitaux · Stage de fin de cycle</p>
+              <ul>
+                <li>Développement d'applications professionnelles en production réelle</li>
+                <li>Architectures logicielles, déploiements et travail en équipe</li>
+              </ul>
+            </div>
+          </li>
+          <li class="tl-item" data-reveal>
+            <div class="tl-item__dot"></div>
+            <div class="tl-item__card glass" data-tilt>
+              <span class="tl-item__date mono">2025 — Présent</span>
+              <h3>Fondateur &amp; Lead Developer — Nexus Code</h3>
+              <p class="muted">Studio de développement web, mobile &amp; desktop</p>
+              <ul>
+                <li>Gestion de projets clients de bout en bout : cahier des charges → déploiement</li>
+                <li>Architectures Spring Boot, React, Node.js, Django</li>
+              </ul>
+            </div>
+          </li>
+          <li class="tl-item" data-reveal>
+            <div class="tl-item__dot tl-item__dot--edu"></div>
+            <div class="tl-item__card glass" data-tilt>
+              <span class="tl-item__date mono">2023 — Présent</span>
+              <h3>Licence en Informatique (L3)</h3>
+              <p class="muted">École Supérieure d'Informatique (ESI) · Bobo-Dioulasso</p>
+              <ul>
+                <li>Spécialisation développement logiciel &amp; systèmes d'information</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== PROJETS ===== -->
+    <section class="section projects" id="projects" aria-labelledby="projects-title">
+      <div class="container">
+        <header class="section__head section__head--row">
+          <div>
+            <p class="eyebrow" data-reveal>03 — Projets</p>
+            <h2 class="section__title" id="projects-title" data-split>Ce que j'ai construit</h2>
+          </div>
+          <p class="section__sub" data-reveal>Une sélection de produits réels : de l'assistant IA qui tourne sur ma
+            machine au jeu 3D piloté à mains nues.</p>
+        </header>
+        <div class="featured" id="featured-projects"></div>
+
+        <div class="more">
+          <div class="more__head" data-reveal>
+            <h3 class="more__title">Autres réalisations</h3>
+            <div class="filters" role="group" aria-label="Filtrer les projets">
+              <button class="filter is-active" id="filter-all" data-filter="all" aria-pressed="true">Tous</button>
+              <button class="filter" id="filter-ia" data-filter="ia" aria-pressed="false">IA</button>
+              <button class="filter" id="filter-web" data-filter="web" aria-pressed="false">Web</button>
+              <button class="filter" id="filter-mobile" data-filter="mobile" aria-pressed="false">Mobile</button>
+              <button class="filter" id="filter-backend" data-filter="backend" aria-pressed="false">Backend</button>
+              <button class="filter" id="filter-3d" data-filter="3d" aria-pressed="false">3D</button>
+            </div>
+          </div>
+          <div class="grid-projects" id="grid-projects"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STACK ===== -->
+    <section class="section skills" id="skills" aria-labelledby="skills-title">
+      <div class="container skills__grid">
+        <div>
+          <header class="section__head">
+            <p class="eyebrow" data-reveal>04 — Stack technique</p>
+            <h2 class="section__title" id="skills-title" data-split>Mon arsenal</h2>
+          </header>
+          <div class="skill-groups">
+            <div class="skill-group" data-reveal>
+              <h3><span class="mono">01</span> Backend</h3>
+              <p>Java · Spring Boot · Spring Security · Node.js · Express · Django / DRF · Prisma · Flyway</p>
+            </div>
+            <div class="skill-group" data-reveal>
+              <h3><span class="mono">02</span> Frontend &amp; Mobile</h3>
+              <p>React · Vite · Flutter / Dart · React Native / Expo · Three.js · GSAP</p>
+            </div>
+            <div class="skill-group" data-reveal>
+              <h3><span class="mono">03</span> IA &amp; Data</h3>
+              <p>MediaPipe · TensorFlow.js · OpenCV · Ollama / LLM · Scikit-learn · PostgreSQL · MySQL · SQLite</p>
+            </div>
+            <div class="skill-group" data-reveal>
+              <h3><span class="mono">04</span> DevOps &amp; Réseau</h3>
+              <p>Docker · AWS EC2 / S3 · Linux · Nginx · PM2 · Git · MikroTik · WireGuard · LAN / DHCP / DNS</p>
+            </div>
+          </div>
+        </div>
+        <div class="sphere-wrap" data-reveal>
+          <div class="sphere" id="skills-sphere" aria-label="Nuage 3D de technologies" role="img"></div>
+          <p class="sphere-hint mono">↻ Bougez la souris pour faire tourner</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CERTIFICATIONS ===== -->
+    <section class="section certs" id="certifications" aria-labelledby="certs-title">
+      <div class="container">
+        <header class="section__head section__head--center">
+          <p class="eyebrow" data-reveal>05 — Certifications</p>
+          <h2 class="section__title" id="certs-title" data-split>16 certifications en orbite</h2>
+          <p class="section__sub" data-reveal>Google, Meta, Amazon, IBM, HackerRank, Udemy… Chaque certificat se
+            présente à tour de rôle. Glissez pour faire tourner la spirale, cliquez pour l'ouvrir.</p>
+        </header>
+
+        <div class="certs__layout">
+          <div class="orbit" id="orbit" tabindex="0"
+            aria-label="Spirale de certificats autour de ma photo. Utilisez les flèches gauche et droite pour naviguer.">
+            <div class="orbit__scene" id="orbit-scene">
+              <div class="orbit__lines" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="orbit__core">
+                <div class="orbit__halo" aria-hidden="true"></div>
+                <div class="orbit__ring orbit__ring--a" aria-hidden="true"></div>
+                <div class="orbit__ring orbit__ring--b" aria-hidden="true"></div>
+                <picture class="orbit__photo">
+                  <source srcset="assets/img/profile.webp" type="image/webp">
+                  <img src="assets/img/profile.jpg" alt="Portrait de Kim Josaphat YARGA" width="680" height="720"
+                    loading="lazy">
+                </picture>
+              </div>
+              <div class="orbit__cards" id="orbit-cards"></div>
+            </div>
+          </div>
+
+          <aside class="spotlight glass" id="spotlight" aria-live="polite">
+            <div class="spotlight__top">
+              <span class="spotlight__index mono"><b id="spot-index">01</b> / <span id="spot-total">16</span></span>
+              <span class="spotlight__badge" id="spot-issuer">Google</span>
+            </div>
+            <div class="spotlight__body" id="spot-body">
+              <p class="spotlight__platform mono" id="spot-platform">Coursera</p>
+              <h3 class="spotlight__title" id="spot-title">—</h3>
+              <p class="spotlight__meta" id="spot-meta">—</p>
+              <p class="spotlight__date mono" id="spot-date">—</p>
+            </div>
+            <div class="spotlight__actions">
+              <button class="btn btn--primary btn--sm" id="spot-open" data-magnetic>Voir le certificat</button>
+              <a class="btn btn--ghost btn--sm" id="spot-verify" href="#" target="_blank" rel="noopener">Vérifier ↗</a>
+            </div>
+            <div class="spotlight__progress" id="spot-progress" aria-hidden="true"></div>
+            <div class="spotlight__controls">
+              <button class="icon-btn" id="spot-prev" aria-label="Certificat précédent"><svg viewBox="0 0 24 24"
+                  aria-hidden="true">
+                  <path d="M15 6l-6 6 6 6" />
+                </svg></button>
+              <button class="icon-btn" id="spot-play" aria-label="Mettre en pause la présentation"
+                aria-pressed="false"><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8 5v14M16 5v14" />
+                </svg><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 5l12 7-12 7z" />
+                </svg></button>
+              <button class="icon-btn" id="spot-next" aria-label="Certificat suivant"><svg viewBox="0 0 24 24"
+                  aria-hidden="true">
+                  <path d="M9 6l6 6-6 6" />
+                </svg></button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
+      <div class="contact__glow" aria-hidden="true"></div>
+      <div class="container contact__inner">
+        <p class="eyebrow" data-reveal>06 — Contact</p>
+        <h2 class="contact__title" id="contact-title" data-split>Construisons quelque chose<br><em>d'exceptionnel.</em>
+        </h2>
+        <p class="section__sub" data-reveal>Missions full stack, backend, applications mobiles ou projets innovants avec
+          de l'IA : je réponds rapidement.</p>
+        <div class="contact__mail" data-reveal>
+          <a href="mailto:yargajosaphat@gmail.com" class="contact__email" id="contact-email"
+            data-magnetic>yargajosaphat@gmail.com</a>
+          <button class="icon-btn" id="copy-email" aria-label="Copier l'adresse e-mail"><svg viewBox="0 0 24 24"
+              aria-hidden="true">
+              <rect x="9" y="9" width="11" height="11" rx="2" />
+              <path d="M5 15V5a2 2 0 0 1 2-2h8" />
+            </svg></button>
+          <span class="copy-toast" id="copy-toast" role="status"></span>
+        </div>
+        <ul class="socials" role="list" data-reveal>
+          <li><a href="https://wa.me/22653967534" target="_blank" rel="noopener" id="social-whatsapp" data-magnetic><svg
+                viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M20.5 3.5A11 11 0 0 0 3.2 17.1L2 22l5-1.3A11 11 0 0 0 20.5 3.5Zm-8.4 17a9 9 0 0 1-4.6-1.3l-.3-.2-3 .8.8-2.9-.2-.3a9 9 0 1 1 7.3 3.9Zm5-6.8c-.3-.1-1.6-.8-1.8-.9-.3-.1-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.6.1a7.4 7.4 0 0 1-3.6-3.2c-.3-.5.3-.4.8-1.4.1-.2 0-.3 0-.5l-.8-2c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.6-.6 1.8-1.3.2-.6.2-1.1.2-1.3l-.7-.4Z"
+                  fill="currentColor" stroke="none" />
+              </svg>WhatsApp</a></li>
+          <li><a href="https://linkedin.com/in/josaphat-yarga" target="_blank" rel="noopener" id="social-linkedin"
+              data-magnetic><svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4z"
+                  fill="currentColor" stroke="none" />
+              </svg>LinkedIn</a></li>
+          <li><a href="https://github.com/Kim-Sypherx" target="_blank" rel="noopener" id="social-github"
+              data-magnetic><svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7 3.6 3.6 0 0 1 .1-2.7s.8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7a3.9 3.9 0 0 1 1 2.7c0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"
+                  fill="currentColor" stroke="none" />
+              </svg>GitHub</a></li>
+          <li><a href="tel:+22653967534" id="social-phone" data-magnetic><svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z" />
+              </svg>+226 53 96 75 34</a></li>
+        </ul>
+        <div class="contact__ctas" data-reveal>
+          <a href="assets/docs/CV-Kim-Josaphat-YARGA.pdf" class="btn btn--primary" id="contact-cv" download
+            data-magnetic>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3v12m0 0 5-5m-5 5-5-5M4 21h16" />
+            </svg>Télécharger mon CV (PDF)</a>
+          <a href="cv.html" class="btn btn--ghost" id="contact-cv-web" data-magnetic>Version web du CV</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>© <span id="year">2026</span> Yempounti Kim Josaphat Geoffroi YARGA</span>
+      <span class="mono muted">Conçu &amp; codé à Bobo-Dioulasso · Three.js · Vanilla JS</span>
+      <a href="#hero" id="back-to-top" class="footer__top">Haut de page ↑</a>
+    </div>
+  </footer>
+
+  <!-- ===== LIGHTBOX CERTIFICAT ===== -->
+  <dialog class="lightbox" id="cert-dialog" closedby="any" aria-labelledby="cert-dialog-title">
+    <div class="lightbox__inner">
+      <header class="lightbox__head">
+        <div>
+          <p class="mono muted" id="cert-dialog-issuer"></p>
+          <h3 id="cert-dialog-title"></h3>
+        </div>
+        <form method="dialog"><button class="icon-btn" id="cert-dialog-close" aria-label="Fermer"><svg
+              viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg></button></form>
+      </header>
+      <div class="lightbox__media" id="cert-dialog-media"></div>
+      <footer class="lightbox__foot">
+        <span class="mono muted" id="cert-dialog-meta"></span>
+        <a class="btn btn--primary btn--sm" id="cert-dialog-verify" target="_blank" rel="noopener">Vérifier
+          l'authenticité ↗</a>
+      </footer>
+    </div>
+  </dialog>
+
+  <script type="module" src="js/main.js"></script>
 </body>
 
 </html>
