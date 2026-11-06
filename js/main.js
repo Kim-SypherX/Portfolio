@@ -20,7 +20,7 @@ function renderProjects() {
 
   featured.innerHTML = PROJECTS.filter((p) => p.featured).map((p, i) => `
     <article class="fproject" style="--accent:${p.accent}" aria-labelledby="fp-${p.id}">
-      <div class="fproject__media" data-reveal data-parallax data-cursor="Explorer">
+      <div class="fproject__media" data-parallax data-side="${i % 2 ? 1 : -1}" data-cursor="Explorer">
         <div class="fproject__img"><img src="${p.img}" alt="Visuel du projet ${p.name}" width="1200" height="896" loading="lazy" decoding="async"></div>
         <span class="fproject__num">${String(i + 1).padStart(2, '0')}</span>
         <span class="fproject__chip">${p.tags.map((t) => chipLabel[t]).join(' · ')}</span>
@@ -269,22 +269,114 @@ function initTilt() {
     el.style.setProperty('--ry', '0deg');
   });
 
-  // Médias des projets vedettes : rotation 3D + parallaxe de l'image
+  // Médias des projets vedettes : la rotation 3D au survol est appliquée
+  // par la boucle de mouvement (initMotion) via des cibles lissées.
   $$('[data-parallax]').forEach((el) => {
     el.addEventListener('pointermove', (e) => {
       const r = el.getBoundingClientRect();
-      const nx = (e.clientX - r.left) / r.width - 0.5;
-      const ny = (e.clientY - r.top) / r.height - 0.5;
-      el.style.transform = `perspective(1200px) rotateY(${nx * 12}deg) rotateX(${-ny * 12}deg)`;
-      el.style.setProperty('--px', `${-nx * 20}px`);
-      el.style.setProperty('--py', `${-ny * 20}px`);
+      el._hx = ((e.clientX - r.left) / r.width - 0.5);
+      el._hy = ((e.clientY - r.top) / r.height - 0.5);
     });
-    el.addEventListener('pointerleave', () => {
-      el.style.transform = '';
-      el.style.setProperty('--px', '0px');
-      el.style.setProperty('--py', '0px');
-    });
+    el.addEventListener('pointerleave', () => { el._hx = 0; el._hy = 0; });
   });
+}
+
+// ---------- Smooth scroll (Lenis, amélioration progressive) ----------
+const smooth = { lenis: null };
+async function initSmoothScroll() {
+  if (reduce) return;
+  try {
+    const { default: Lenis } = await import('lenis');
+    const lenis = new Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 0.95 });
+    smooth.lenis = lenis;
+    if (document.body.classList.contains('is-loading')) lenis.stop();
+    const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+    // Ancres internes : défilement fluide avec compensation de la barre de nav
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      const id = a.getAttribute('href');
+      const target = id === '#' ? null : document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      lenis.scrollTo(target, { offset: id === '#hero' ? 0 : -64, duration: 1.6 });
+      history.replaceState(null, '', id);
+    });
+  } catch (err) {
+    console.warn('Smooth scroll indisponible :', err);
+  }
+}
+
+// ---------- Moteur de mouvement lié au scroll ----------
+function initMotion() {
+  const heroContent = $('.hero__content');
+  const heroStatus = $('.hero__status');
+  const marquee = $('.marquee');
+  const medias = $$('[data-parallax]');
+  const clamp01 = (v) => Math.min(1, Math.max(0, v));
+  const ease = (t) => 1 - Math.pow(1 - t, 3);
+
+  // Seuls les médias proches de l'écran sont calculés
+  const active = new Set();
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => (e.isIntersecting ? active.add(e.target) : active.delete(e.target)));
+  }, { rootMargin: '20% 0px' });
+  medias.forEach((m) => {
+    m._hx = 0; m._hy = 0; m._cx = 0; m._cy = 0;
+    io.observe(m);
+  });
+
+  if (reduce) return;
+
+  let mx = 0, my = 0, smx = 0, smy = 0;
+  if (fine) addEventListener('pointermove', (e) => {
+    mx = e.clientX / innerWidth - 0.5;
+    my = e.clientY / innerHeight - 0.5;
+  }, { passive: true });
+
+  let lastY = scrollY, vel = 0, heroDone = false;
+  const frame = () => {
+    const y = scrollY;
+    const vh = innerHeight;
+    vel += ((y - lastY) - vel) * 0.12;
+    lastY = y;
+    smx += (mx - smx) * 0.06;
+    smy += (my - smy) * 0.06;
+
+    // Hero : recul 3D + fondu au scroll, inclinaison suivant la souris
+    if (y < vh * 1.3 || !heroDone) {
+      heroDone = y >= vh * 1.3;
+      const p = clamp01(y / (vh * 0.9));
+      heroContent.style.transform = `perspective(1400px) translate3d(0, ${(-p * 140).toFixed(1)}px, ${(-p * 220).toFixed(1)}px) rotateX(${(p * 14 - smy * 5).toFixed(2)}deg) rotateY(${(smx * 7).toFixed(2)}deg)`;
+      heroContent.style.opacity = (1 - p * 1.15).toFixed(3);
+      if (heroStatus) heroStatus.style.translate = `${(smx * -24).toFixed(1)}px ${(smy * -18 - p * 60).toFixed(1)}px`;
+    }
+
+    // Marquee : inclinaison selon la vitesse de défilement
+    if (marquee) marquee.style.setProperty('--skew', `${Math.max(-14, Math.min(14, vel * -0.35)).toFixed(2)}deg`);
+
+    // Projets vedettes : entrée 3D + parallaxe interne + clip
+    const reads = [];
+    active.forEach((el) => reads.push([el, el.getBoundingClientRect()]));
+    reads.forEach(([el, r]) => {
+      const enter = ease(clamp01((vh - r.top) / (vh * 0.8)));
+      const center = (r.top + r.height / 2 - vh / 2) / vh;
+      const side = Number(el.dataset.side) || 1;
+      el._cx += (el._hx - el._cx) * 0.1;
+      el._cy += (el._hy - el._cy) * 0.1;
+      el.style.setProperty('--sx', `${((1 - enter) * 28 - el._cy * 12).toFixed(2)}deg`);
+      el.style.setProperty('--sy', `${((1 - enter) * 18 * side + el._cx * 12).toFixed(2)}deg`);
+      el.style.setProperty('--sz', `${((1 - enter) * -260).toFixed(1)}px`);
+      el.style.setProperty('--enter', enter.toFixed(3));
+      el.style.setProperty('--iy', `${(center * -46).toFixed(1)}px`);
+      el.style.setProperty('--px', `${(-el._cx * 20).toFixed(1)}px`);
+      el.style.setProperty('--py', `${(-el._cy * 20).toFixed(1)}px`);
+    });
+
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
 }
 
 // ---------- Filtres projets ----------
@@ -334,7 +426,10 @@ function initDialog(orbitApi) {
       if (!inside) dlg.close();
     });
   }
-  dlg.addEventListener('close', () => orbitApi?.current?.setDialogOpen(false));
+  dlg.addEventListener('close', () => {
+    orbitApi?.current?.setDialogOpen(false);
+    smooth.lenis?.start();
+  });
   return (c) => {
     $('#cert-dialog-title').textContent = c.title;
     $('#cert-dialog-issuer').textContent = `${c.issuer} · ${c.platform}`;
@@ -344,6 +439,7 @@ function initDialog(orbitApi) {
       : `<div class="ocard__fallback"><small>${c.issuer}</small><b>${c.title}</b><small>${c.date} — certificat vérifiable sur demande</small></div>`;
     if (c.verify) { verify.href = c.verify; verify.hidden = false; } else { verify.hidden = true; }
     orbitApi?.current?.setDialogOpen(true);
+    smooth.lenis?.stop();
     dlg.showModal();
   };
 }
@@ -378,6 +474,8 @@ initFilters();
 initTimeline();
 initCopy();
 initSkillSphere($('#skills-sphere'), SKILL_TAGS);
+initSmoothScroll();
+initMotion();
 
 const orbitApi = { current: null };
 const openCert = initDialog(orbitApi);
@@ -389,6 +487,7 @@ import('./hero3d.js')
   .catch((err) => console.warn('Hero 3D indisponible :', err));
 
 runLoader(() => {
+  smooth.lenis?.start();
   $$('.hero__title .line').forEach((l, k) => {
     l.style.setProperty('--d', `${k * 220}ms`);
     $$('.char', l).forEach((c) => c.style.setProperty('--d', `${k * 220}ms`));

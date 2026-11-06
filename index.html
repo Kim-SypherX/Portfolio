@@ -22,11 +22,16 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet">
-  <link rel="preload" as="image" href="assets/img/profile.webp" type="image/webp">
   <link rel="stylesheet" href="styles.css">
 
   <script type="importmap">
-    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+        "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.mjs"
+      }
+    }
   </script>
 </head>
 
@@ -112,10 +117,10 @@
     <div class="marquee" aria-hidden="true">
       <div class="marquee__track">
         <span>Spring
-          Boot</span><i>✦</i><span>React</span><i>✦</i><span>Node.js</span><i>✦</i><span>Flutter</span><i>✦</i><span>Three.js</span><i>✦</i><span>MediaPipe</span><i>✦</i><span>Django</span><i>✦</i><span>PostgreSQL</span><i>✦</i><span>Docker</span><i>✦</i><span>Ollama
+          Boot</span><i>✦</i><span>React</span><i>✦</i><span>Node.js</span><i>✦</i><span>Flutter</span><i>✦</i><span>Kotlin</span><i>✦</i><span>Three.js</span><i>✦</i><span>MediaPipe</span><i>✦</i><span>Django</span><i>✦</i><span>PostgreSQL</span><i>✦</i><span>Docker</span><i>✦</i><span>WebRTC</span><i>✦</i><span>Ollama
           · LLM</span><i>✦</i>
         <span>Spring
-          Boot</span><i>✦</i><span>React</span><i>✦</i><span>Node.js</span><i>✦</i><span>Flutter</span><i>✦</i><span>Three.js</span><i>✦</i><span>MediaPipe</span><i>✦</i><span>Django</span><i>✦</i><span>PostgreSQL</span><i>✦</i><span>Docker</span><i>✦</i><span>Ollama
+          Boot</span><i>✦</i><span>React</span><i>✦</i><span>Node.js</span><i>✦</i><span>Flutter</span><i>✦</i><span>Kotlin</span><i>✦</i><span>Three.js</span><i>✦</i><span>MediaPipe</span><i>✦</i><span>Django</span><i>✦</i><span>PostgreSQL</span><i>✦</i><span>Docker</span><i>✦</i><span>WebRTC</span><i>✦</i><span>Ollama
           · LLM</span><i>✦</i>
       </div>
     </div>
@@ -134,7 +139,7 @@
               des plateformes complètes de bout en bout : architecture, API, interfaces web &amp; mobile, déploiement.
             </p>
             <p>Mon terrain de jeu : intégrer l'<strong>intelligence artificielle</strong> (MediaPipe, TensorFlow.js, LLM
-              locaux), la <strong>communication temps réel</strong> (Socket.IO, WebSocket) et la <strong>3D</strong>
+              locaux), la <strong>communication temps réel</strong> (Socket.IO, WebSocket, VoIP SIP / WebRTC) et la <strong>3D</strong>
               dans des produits utiles. En juillet 2026, j'ai co-fondé <strong>QUANTIS</strong>, une startup
               d'ingénierie logicielle qui digitalise les entreprises du Burkina Faso.</p>
             <blockquote class="quote">« Je construis, j'expérimente et j'améliore. »</blockquote>
@@ -197,6 +202,7 @@
               <ul>
                 <li>Signature du pacte des 3 fondateurs, définition de la vision et des 7 principes</li>
                 <li>Lancement de Quantis-Stock (ERP Spring Boot + Flutter) et du site quantisbf.com</li>
+                <li>Développement de Quantis-Phone : téléphonie VoIP d'entreprise (Asterisk, WebRTC, Android)</li>
                 <li>Offre : apps mobiles, ERP, web, réseaux, intégration d'IA</li>
               </ul>
             </div>
@@ -294,19 +300,20 @@
           <div class="skill-groups">
             <div class="skill-group" data-reveal>
               <h3><span class="mono">01</span> Backend</h3>
-              <p>Java · Spring Boot · Spring Security · Node.js · Express · Django / DRF · Prisma · Flyway</p>
+              <p>Java · Spring Boot · Spring Security · Node.js · Express · Django / DRF · FastAPI · Prisma · Flyway</p>
             </div>
             <div class="skill-group" data-reveal>
               <h3><span class="mono">02</span> Frontend &amp; Mobile</h3>
-              <p>React · Vite · Flutter / Dart · React Native / Expo · Three.js · GSAP</p>
+              <p>React · Vite · Flutter / Dart · Kotlin / Jetpack Compose · React Native / Expo · Three.js · GSAP</p>
             </div>
             <div class="skill-group" data-reveal>
               <h3><span class="mono">03</span> IA &amp; Data</h3>
-              <p>MediaPipe · TensorFlow.js · OpenCV · Ollama / LLM · Scikit-learn · PostgreSQL · MySQL · SQLite</p>
+              <p>MediaPipe · TensorFlow.js · OpenCV · Ollama / LLM · Scikit-learn · PostgreSQL · MySQL · Redis · SQLite</p>
             </div>
             <div class="skill-group" data-reveal>
-              <h3><span class="mono">04</span> DevOps &amp; Réseau</h3>
-              <p>Docker · AWS EC2 / S3 · Linux · Nginx · PM2 · Git · MikroTik · WireGuard · LAN / DHCP / DNS</p>
+              <h3><span class="mono">04</span> DevOps, Réseau &amp; VoIP</h3>
+              <p>Docker · AWS EC2 / S3 · Linux · Nginx · PM2 · Git · MikroTik · WireGuard · Asterisk / SIP · WebRTC ·
+                LiveKit</p>
             </div>
           </div>
         </div>
@@ -324,23 +331,28 @@
           <p class="eyebrow" data-reveal>05 — Certifications</p>
           <h2 class="section__title" id="certs-title" data-split>16 certifications en orbite</h2>
           <p class="section__sub" data-reveal>Google, Meta, Amazon, IBM, HackerRank, Udemy… Chaque certificat se
-            présente à tour de rôle. Glissez pour faire tourner la spirale, cliquez pour l'ouvrir.</p>
+            présente à tour de rôle. Glissez pour faire tourner le globe, cliquez pour l'ouvrir.</p>
         </header>
 
         <div class="certs__layout">
           <div class="orbit" id="orbit" tabindex="0"
-            aria-label="Spirale de certificats autour de ma photo. Utilisez les flèches gauche et droite pour naviguer.">
+            aria-label="Globe de certificats autour de ma photo. Utilisez les flèches gauche et droite pour naviguer.">
             <div class="orbit__scene" id="orbit-scene">
-              <div class="orbit__lines" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="orbit__globe" id="orbit-globe" aria-hidden="true"></div>
+              <div class="orbit__dust" id="orbit-dust" aria-hidden="true"></div>
               <div class="orbit__core">
                 <div class="orbit__halo" aria-hidden="true"></div>
+                <div class="orbit__portal" aria-hidden="true">
+                  <span class="orbit__portal-grid"></span>
+                </div>
                 <div class="orbit__ring orbit__ring--a" aria-hidden="true"></div>
                 <div class="orbit__ring orbit__ring--b" aria-hidden="true"></div>
-                <picture class="orbit__photo">
-                  <source srcset="assets/img/profile.webp" type="image/webp">
-                  <img src="assets/img/profile.jpg" alt="Portrait de Kim Josaphat YARGA" width="680" height="720"
-                    loading="lazy">
-                </picture>
+                <div class="orbit__photo">
+                  <img src="assets/img/profile-cutout.webp" alt="Portrait de Kim Josaphat YARGA" width="600"
+                    height="797" loading="lazy" decoding="async" draggable="false"
+                    onerror="this.onerror=null;this.src='assets/img/profile.jpg';this.parentElement.classList.add('is-raw')">
+                </div>
+                <div class="orbit__base" aria-hidden="true"></div>
               </div>
               <div class="orbit__cards" id="orbit-cards"></div>
             </div>
@@ -447,7 +459,7 @@
   </footer>
 
   <!-- ===== LIGHTBOX CERTIFICAT ===== -->
-  <dialog class="lightbox" id="cert-dialog" closedby="any" aria-labelledby="cert-dialog-title">
+  <dialog class="lightbox" id="cert-dialog" closedby="any" aria-labelledby="cert-dialog-title" data-lenis-prevent>
     <div class="lightbox__inner">
       <header class="lightbox__head">
         <div>

@@ -78,9 +78,13 @@ export function initHero3D(canvas) {
   gGeo.setAttribute('aRnd', new THREE.BufferAttribute(rnd, 1));
   const gMat = new THREE.ShaderMaterial({
     transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, vertexColors: true,
-    uniforms: { uTime: { value: 0 }, uPixel: { value: renderer.getPixelRatio() }, uScroll: { value: 0 } },
+    uniforms: {
+      uTime: { value: 0 }, uPixel: { value: renderer.getPixelRatio() }, uScroll: { value: 0 },
+      uMouse: { value: new THREE.Vector3(99, 0, 99) }, uMouseS: { value: 0 },
+    },
     vertexShader: /* glsl */ `
       uniform float uTime; uniform float uPixel; uniform float uScroll;
+      uniform vec3 uMouse; uniform float uMouseS;
       attribute float aRnd; varying vec3 vColor; varying float vAlpha;
       void main(){
         vec3 p = position;
@@ -88,11 +92,19 @@ export function initHero3D(canvas) {
         float ang = atan(p.z, p.x) + uTime * (0.06 + 0.25 / (r + 1.0)) + uScroll * 1.2;
         p.x = cos(ang) * r; p.z = sin(ang) * r;
         p.y += sin(uTime * 0.8 + aRnd * 6.2831) * 0.06;
+        // Onde de répulsion autour du curseur
+        vec2 dm = p.xz - uMouse.xz;
+        float dist = length(dm);
+        float push = smoothstep(2.6, 0.0, dist) * uMouseS;
+        p.xz += normalize(dm + 0.0001) * push * 0.9;
+        p.y += push * (0.5 + aRnd * 0.6);
+        // Explosion douce au scroll
+        p *= 1.0 + uScroll * 0.35 * aRnd;
         vec4 mv = modelViewMatrix * vec4(p, 1.0);
         gl_Position = projectionMatrix * mv;
-        gl_PointSize = (aRnd * 2.2 + 0.8) * uPixel * (14.0 / -mv.z);
-        vColor = color;
-        vAlpha = 0.45 + 0.55 * sin(uTime * 1.5 + aRnd * 40.0) * 0.5 + 0.25;
+        gl_PointSize = (aRnd * 2.2 + 0.8) * uPixel * (14.0 / -mv.z) * (1.0 + push * 1.4);
+        vColor = mix(color, vec3(1.0, 0.95, 0.85), push * 0.6);
+        vAlpha = 0.45 + 0.55 * sin(uTime * 1.5 + aRnd * 40.0) * 0.5 + 0.25 + push * 0.4;
       }`,
     fragmentShader: /* glsl */ `
       varying vec3 vColor; varying float vAlpha;
@@ -167,29 +179,114 @@ export function initHero3D(canvas) {
     sats.push({ mesh: s, r: ring.geometry.parameters.radius, speed: 0.5 + k * 0.22, off: k * 2 });
   });
 
+  // ---------- Poussière d'avant-plan (profondeur / parallaxe) ----------
+  const DUST = innerWidth < 700 ? 260 : 650;
+  const dPos = new Float32Array(DUST * 3);
+  const dRnd = new Float32Array(DUST);
+  for (let i = 0; i < DUST; i++) {
+    dPos[i * 3] = (Math.random() - 0.5) * 26;
+    dPos[i * 3 + 1] = (Math.random() - 0.5) * 16;
+    dPos[i * 3 + 2] = Math.random() * 9 - 2;
+    dRnd[i] = Math.random();
+  }
+  const dGeo = new THREE.BufferGeometry();
+  dGeo.setAttribute('position', new THREE.BufferAttribute(dPos, 3));
+  dGeo.setAttribute('aRnd', new THREE.BufferAttribute(dRnd, 1));
+  const dMat = new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    uniforms: { uTime: { value: 0 }, uPixel: { value: renderer.getPixelRatio() } },
+    vertexShader: /* glsl */ `
+      uniform float uTime; uniform float uPixel; attribute float aRnd; varying float vA;
+      void main(){
+        vec3 p = position;
+        p.y = mod(p.y + uTime * (0.08 + aRnd * 0.18) + 8.0, 16.0) - 8.0;
+        p.x += sin(uTime * 0.3 + aRnd * 12.0) * 0.25;
+        vec4 mv = modelViewMatrix * vec4(p, 1.0);
+        gl_Position = projectionMatrix * mv;
+        gl_PointSize = (0.6 + aRnd * 1.6) * uPixel * (10.0 / -mv.z);
+        vA = (0.25 + aRnd * 0.55) * smoothstep(0.5, 3.0, -mv.z);
+      }`,
+    fragmentShader: /* glsl */ `
+      varying float vA;
+      void main(){
+        float d = length(gl_PointCoord - 0.5);
+        gl_FragColor = vec4(0.75, 0.9, 1.0, smoothstep(0.5, 0.0, d) * vA);
+      }`,
+  });
+  const dustPts = new THREE.Points(dGeo, dMat);
+  scene.add(dustPts);
+
+  // ---------- Bloom (desktop uniquement, chargé à la demande) ----------
+  let composer = null;
+  async function setupBloom() {
+    if (reduce || innerWidth < 900) return;
+    try {
+      const [{ EffectComposer }, { RenderPass }, { UnrealBloomPass }] = await Promise.all([
+        import('three/addons/postprocessing/EffectComposer.js'),
+        import('three/addons/postprocessing/RenderPass.js'),
+        import('three/addons/postprocessing/UnrealBloomPass.js'),
+      ]);
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      renderer.setClearColor(0x05060b, 1);
+      const c = new EffectComposer(renderer);
+      c.addPass(new RenderPass(scene, camera));
+      c.addPass(new UnrealBloomPass(new THREE.Vector2(w, h), 0.55, 0.6, 0.22));
+      c.setSize(w, h);
+      composer = c;
+    } catch (e) {
+      console.warn('Bloom indisponible :', e);
+    }
+  }
+  setupBloom();
+
   // ---------- Layout / resize ----------
+  const base = { x: 3.1, y: 0.1, s: 1 };
   function layout() {
     const w = canvas.clientWidth, h = canvas.clientHeight;
     renderer.setSize(w, h, false);
+    composer?.setSize(w, h);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     const mobile = w < 900;
-    core.position.set(mobile ? 0 : 3.1, mobile ? 1.4 : 0.1, 0);
-    core.scale.setScalar(mobile ? 0.62 : 1);
-    blobMat.uniforms.uTime.value += 0;
+    base.x = mobile ? 0 : 3.1;
+    base.y = mobile ? 1.4 : 0.1;
+    base.s = mobile ? 0.62 : 1;
   }
   layout();
   new ResizeObserver(layout).observe(canvas);
 
   // ---------- Interactions ----------
   const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+  const ndc = new THREE.Vector2(9, 9);
   addEventListener('pointermove', (e) => {
     mouse.tx = (e.clientX / innerWidth) * 2 - 1;
     mouse.ty = (e.clientY / innerHeight) * 2 - 1;
+    const r = canvas.getBoundingClientRect();
+    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
   }, { passive: true });
   let hover = 0, hoverT = 0;
   canvas.parentElement.addEventListener('pointerenter', () => (hoverT = 1));
   canvas.parentElement.addEventListener('pointerleave', () => (hoverT = 0));
+
+  // Projection du curseur dans le plan de la galaxie
+  const ray = new THREE.Raycaster();
+  const plane = new THREE.Plane();
+  const nrm = new THREE.Vector3();
+  const hit = new THREE.Vector3();
+  const quat = new THREE.Quaternion();
+  const gPos = new THREE.Vector3();
+  function updateMouseInGalaxy() {
+    galaxy.updateMatrixWorld();
+    galaxy.getWorldQuaternion(quat);
+    galaxy.getWorldPosition(gPos);
+    nrm.set(0, 1, 0).applyQuaternion(quat);
+    plane.setFromNormalAndCoplanarPoint(nrm, gPos);
+    ray.setFromCamera(ndc, camera);
+    if (ray.ray.intersectPlane(plane, hit)) {
+      galaxy.worldToLocal(hit);
+      gMat.uniforms.uMouse.value.lerp(hit, 0.18);
+    }
+  }
 
   let scrollP = 0;
   addEventListener('scroll', () => {
@@ -200,19 +297,29 @@ export function initHero3D(canvas) {
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) loop(); }, { threshold: 0 }).observe(canvas);
 
   const clock = new THREE.Clock();
+  const easeOut = (t) => 1 - Math.pow(1 - t, 4);
+  let introStart = -1;
   let raf = 0;
   function render() {
     const t = clock.getElapsedTime();
+    // Travelling d'introduction déclenché à la fin du loader
+    if (introStart < 0 && !document.body.classList.contains('is-loading')) introStart = t;
+    const intro = reduce ? 1 : introStart < 0 ? 0 : easeOut(Math.min((t - introStart) / 2.8, 1));
+
     mouse.x += (mouse.tx - mouse.x) * 0.05;
     mouse.y += (mouse.ty - mouse.y) * 0.05;
     hover += (hoverT - hover) * 0.04;
 
     gMat.uniforms.uTime.value = t;
     gMat.uniforms.uScroll.value = scrollP;
+    gMat.uniforms.uMouseS.value = hover * intro;
+    dMat.uniforms.uTime.value = t;
     blobMat.uniforms.uTime.value = t;
     blobMat.uniforms.uHover.value = hover;
 
-    core.rotation.y = t * 0.15 + mouse.x * 0.4;
+    core.position.set(base.x, base.y + scrollP * 1.4, 0);
+    core.scale.setScalar(base.s * (0.4 + 0.6 * intro) * (1 + scrollP * 0.25));
+    core.rotation.y = t * 0.15 + mouse.x * 0.4 + (1 - intro) * 2.5;
     core.rotation.x = mouse.y * 0.25;
     wire.rotation.y = -t * 0.1;
     wire.rotation.z = t * 0.05;
@@ -222,13 +329,19 @@ export function initHero3D(canvas) {
       s.mesh.position.set(Math.cos(a) * s.r, Math.sin(a) * s.r, 0);
     });
 
+    galaxy.rotation.y = (1 - intro) * -1.2;
     camera.position.x = mouse.x * 0.8;
-    camera.position.y = 0.6 - mouse.y * 0.5 + scrollP * 1.2;
-    camera.position.z = 9 + scrollP * 3;
+    camera.position.y = 0.6 - mouse.y * 0.5 + scrollP * 1.2 + (1 - intro) * 3;
+    camera.position.z = 9 + scrollP * 3 + (1 - intro) * 9;
     camera.lookAt(0, scrollP * 0.6, 0);
     root.rotation.z = scrollP * 0.15;
+    dustPts.position.x = -mouse.x * 0.6;
+    dustPts.position.y = mouse.y * 0.4;
 
-    renderer.render(scene, camera);
+    updateMouseInGalaxy();
+
+    if (composer) composer.render();
+    else renderer.render(scene, camera);
   }
   function loop() {
     cancelAnimationFrame(raf);

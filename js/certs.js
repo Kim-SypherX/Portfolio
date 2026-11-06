@@ -1,7 +1,7 @@
 // =============================================================
-// ORBITE DES CERTIFICATS — spirale 3D (CSS 3D piloté en JS)
-// Les certificats tournent en hélice autour de la photo ;
-// à tour de rôle, l'un d'eux sort de la spirale et se présente.
+// ORBITE DES CERTIFICATS — globe 3D (CSS 3D piloté en JS)
+// Les certificats tournent en hélice sphérique autour de la photo ;
+// à tour de rôle, l'un d'eux sort du globe et se présente.
 // =============================================================
 
 const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -52,25 +52,58 @@ export function initCertOrbit({ certs, onOpen }) {
   ui.progress.innerHTML = certs.map(() => '<i></i>').join('');
   const segs = [...ui.progress.children];
 
+  // ---------- Globe filaire + poussière d'étoiles ----------
+  const globe = document.getElementById('orbit-globe');
+  const dust = document.getElementById('orbit-dust');
+  const LATS = [-0.82, -0.45, 0, 0.45, 0.82];
+  const MERIDIANS = 4;
+  if (globe) {
+    globe.innerHTML =
+      `<div class="orbit__lats">${LATS.map(() => '<i></i>').join('')}</div>` +
+      `<div class="orbit__meridians">${Array.from({ length: MERIDIANS }, (_, k) => `<i style="--a:${(k * 180) / MERIDIANS}deg"></i>`).join('')}</div>`;
+  }
+  if (dust && !reduce) {
+    dust.innerHTML = Array.from({ length: 34 }, () => {
+      const a = Math.random() * 360, r = 0.55 + Math.random() * 0.6, y = (Math.random() - 0.5) * 1.6;
+      const d = 6 + Math.random() * 10, s = 1 + Math.random() * 2.2;
+      return `<i style="--a:${a.toFixed(0)}deg;--rr:${r.toFixed(2)};--yy:${y.toFixed(2)};--d:${d.toFixed(1)}s;--s:${s.toFixed(1)}px;--dl:${(-Math.random() * d).toFixed(1)}s"></i>`;
+    }).join('');
+  }
+
   // ---------- Géométrie responsive ----------
   let G = {};
+  // Rayon de la sphère selon la latitude normalisée (-1 → 1)
+  const radiusAt = (yn) => G.R * (0.38 + 0.62 * Math.sqrt(Math.max(0, 1 - yn * yn)));
   function measure() {
     const w = orbit.clientWidth;
     const mobile = w < 560;
     const R = clamp(w * 0.36, 140, 330);
+    const pitch = mobile ? 24 : 34;
     G = {
-      mobile, R,
-      pitch: mobile ? 24 : 34,
-      y0: mobile ? 40 : 30,
+      mobile, R, pitch,
+      H: pitch * 7.8,
+      y0: mobile ? 30 : 20,
       theta0: mobile ? 0 : 0.5,
-      photoHalfW: mobile ? 85 : 125,
-      photoBottom: mobile ? 85 : 130,
+      photoHalfW: mobile ? 95 : 140,
+      photoBottom: mobile ? 100 : 150,
       cardW: mobile ? 112 : 180,
       target: mobile
-        ? { x: 0, y: 175, z: R * 0.5, s: 1.45 }
-        : { x: R * 0.86, y: 34, z: R * 0.55, s: 1.38 },
+        ? { x: 0, y: 190, z: R * 0.6, s: 1.45 }
+        : { x: R * 0.9, y: 30, z: R * 0.6, s: 1.38 },
     };
-    scene.querySelectorAll('.orbit__lines i').forEach((el) => el.style.setProperty('--r', `${R}px`));
+    if (globe) {
+      globe.style.setProperty('--gy', `${G.y0}px`);
+      globe.style.setProperty('--R', `${R}px`);
+      globe.style.setProperty('--H', `${G.H}px`);
+      globe.querySelectorAll('.orbit__lats i').forEach((el, k) => {
+        el.style.setProperty('--r', `${radiusAt(LATS[k]).toFixed(1)}px`);
+        el.style.setProperty('--y', `${(LATS[k] * G.H).toFixed(1)}px`);
+      });
+    }
+    if (dust) {
+      dust.style.setProperty('--R', `${R}px`);
+      dust.style.setProperty('--H', `${G.H}px`);
+    }
   }
   measure();
   new ResizeObserver(measure).observe(orbit);
@@ -138,15 +171,20 @@ export function initCertOrbit({ certs, onOpen }) {
 
   // ---------- Rendu d'une frame ----------
   function renderCards() {
-    const { R, pitch, y0, theta0, target, photoHalfW, photoBottom, cardW } = G;
+    const { pitch, y0, H, theta0, target, photoHalfW, photoBottom, cardW, R } = G;
     const presentIdx = mod(Math.round(S.progress));
     for (let i = 0; i < N; i++) {
       const rel = wrapRel(i - S.progress);
       const th = rel * STEP + theta0;
-      let x = Math.sin(th) * R;
-      let z = Math.cos(th) * R;
+      // Hélice sphérique : le rayon se resserre vers les pôles
       let y = y0 + rel * pitch;
+      const yn = clamp((y - y0) / H, -1, 1);
+      const rr = radiusAt(yn);
+      let x = Math.sin(th) * rr;
+      let z = Math.cos(th) * rr;
       let ry = (th * 180) / Math.PI;
+      // Les cartes épousent la courbure du globe
+      let rx = -yn * 28;
       let s = 1;
 
       // Visibilité : fondu aux extrémités de l'hélice
@@ -165,15 +203,18 @@ export function initCertOrbit({ certs, onOpen }) {
         y = lerp(y, target.y, p);
         z = lerp(z, target.z, p);
         ry = lerp(ry, 0, p);
+        rx = lerp(rx, 0, p);
         s = lerp(1, target.s, p);
         op = lerp(op, 1, p);
         shade = lerp(shade, 0, p);
       }
 
       const el = cards[i];
-      el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px) rotateY(${ry.toFixed(2)}deg) scale(${s.toFixed(3)})`;
+      el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px) rotateY(${ry.toFixed(2)}deg) rotateX(${rx.toFixed(2)}deg) scale(${s.toFixed(3)})`;
       el.style.opacity = op.toFixed(3);
       el.style.setProperty('--shade', shade.toFixed(3));
+      // Reflet qui glisse sur la carte selon son angle
+      el.style.setProperty('--sheen', `${(50 + Math.sin(th) * 60).toFixed(1)}%`);
       el.style.pointerEvents = op < 0.2 ? 'none' : '';
       el.tabIndex = op < 0.2 ? -1 : 0;
     }

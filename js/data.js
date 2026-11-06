@@ -196,6 +196,18 @@ export const PROJECTS = [
     accent: '#22d3ee',
   },
   {
+    id: 'quantis-phone',
+    featured: true,
+    name: 'Quantis Phone',
+    kicker: 'Communication unifiée · VoIP SIP / WebRTC',
+    desc: "Une plateforme de téléphonie d'entreprise complète, de l'infrastructure jusqu'à l'app mobile : appels audio HD, appels vidéo avec incrustation, messagerie instantanée temps réel, conférences multi-participants et notifications d'appel entrant qui réveillent le téléphone même verrouillé. Validée sur smartphone Android 15 réel.",
+    highlights: ['PBX Asterisk PJSIP · coturn STUN/TURN · LiveKit SFU', 'App Android Kotlin + Linphone SDK · Opus HD, VP8/H.264', 'API FastAPI · provisioning SIP auto · chat WebSocket'],
+    stack: ['Kotlin', 'Jetpack Compose', 'Linphone SDK', 'Asterisk', 'FastAPI', 'LiveKit', 'PostgreSQL', 'Docker'],
+    tags: ['mobile', 'backend'],
+    img: 'assets/projects/quantis-phone.webp',
+    accent: '#34d399',
+  },
+  {
     id: 'virtual-car-game',
     featured: true,
     name: 'Virtual Car Game',
@@ -274,15 +286,6 @@ export const PROJECTS = [
     img: 'assets/projects/ia-trader.webp',
   },
   {
-    id: 'did-boutique',
-    name: 'DID Boutique',
-    kicker: 'Gestion commerciale & encaissement',
-    desc: "Logiciel de gestion de boutique alimentaire : API REST en couches MVC, application Flutter Web + APK Android, lancement en un clic.",
-    stack: ['Spring Boot 3', 'Java 21', 'Flutter', 'PostgreSQL'],
-    tags: ['mobile', 'backend'],
-    img: 'assets/projects/did-boutique.webp',
-  },
-  {
     id: 'dbz-ar',
     name: 'DBZ AR Experience',
     kicker: 'Réalité augmentée',
@@ -337,4 +340,5 @@ export const SKILL_TAGS = [
   'PostgreSQL', 'MySQL', 'Prisma', 'Docker', 'AWS', 'Linux', 'Nginx', 'Git',
   'Socket.IO', 'WebSocket', 'JWT', 'Flyway', 'React Native', 'Express', 'TypeScript',
   'MikroTik', 'WireGuard', 'Firebase', 'REST API', 'GSAP', 'Vite', 'SQLite', 'Expo',
+  'Kotlin', 'FastAPI', 'WebRTC', 'Asterisk', 'LiveKit', 'Redis',
 ];
