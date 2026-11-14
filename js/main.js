@@ -4,6 +4,7 @@
 import { CERTIFICATIONS, PROJECTS, SKILL_TAGS } from './data.js';
 import { initCertOrbit } from './certs.js';
 import { initSkillSphere } from './sphere.js';
+import { initLab } from './lab.js';
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -35,15 +36,17 @@ function renderProjects() {
     </article>`).join('');
 
   grid.innerHTML = PROJECTS.filter((p) => !p.featured).map((p) => `
-    <article class="pcard glass" data-tags="${p.tags.join(' ')}" data-tilt data-reveal>
+    <article class="pcard glass ${p.demo ? 'pcard--demo' : ''}" data-tags="${p.tags.join(' ')}" data-tilt data-reveal>
       <div class="pcard__media ${p.img ? '' : 'pcard__media--art'}">
         ${p.img ? `<img src="${p.img}" alt="Visuel du projet ${p.name}" loading="lazy" decoding="async" width="1200" height="750">` : `<span class="grad-text">${p.name}</span>`}
+        ${p.demo ? `<span class="pcard__live"><i></i>Jouable en live</span>` : ''}
       </div>
       <div class="pcard__body">
         <p class="pcard__kicker">${p.kicker}</p>
         <h4 class="pcard__name">${p.name}${p.link ? `<a href="${p.link}" target="_blank" rel="noopener" aria-label="Visiter ${p.name}">Visiter ↗</a>` : ''}</h4>
         <p class="pcard__desc">${p.desc}</p>
         <div class="stack">${p.stack.map((s) => `<span>${s}</span>`).join('')}</div>
+        ${p.demo ? `<button class="btn btn--primary btn--sm pcard__play" type="button" data-lab="${p.demo}">Tester avec ma webcam ▶</button>` : ''}
       </div>
     </article>`).join('');
 }
@@ -480,6 +483,12 @@ initMotion();
 const orbitApi = { current: null };
 const openCert = initDialog(orbitApi);
 orbitApi.current = initCertOrbit({ certs: CERTIFICATIONS, onOpen: openCert });
+
+// Lab interactif (Naruto / DBZ) : on fige le smooth scroll pendant la démo
+initLab({
+  onOpen: () => { smooth.lenis?.stop(); document.body.classList.add('is-lab'); },
+  onClose: () => { smooth.lenis?.start(); document.body.classList.remove('is-lab'); },
+});
 
 // Scène 3D chargée dynamiquement (le site reste fonctionnel si le CDN échoue)
 import('./hero3d.js')

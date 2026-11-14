@@ -61,6 +61,7 @@
       <a href="#about" data-link>À propos</a>
       <a href="#experience" data-link>Parcours</a>
       <a href="#projects" data-link>Projets</a>
+      <a href="#lab" data-link>Lab</a>
       <a href="#skills" data-link>Stack</a>
       <a href="#certifications" data-link>Certifications</a>
       <a href="#contact" data-link>Contact</a>
@@ -289,12 +290,84 @@
       </div>
     </section>
 
+    <!-- ===== LAB INTERACTIF ===== -->
+    <section class="section lab" id="lab" aria-labelledby="lab-title">
+      <div class="lab__bg" aria-hidden="true"></div>
+      <div class="container">
+        <header class="section__head section__head--row">
+          <div>
+            <p class="eyebrow" data-reveal>04 — Lab interactif</p>
+            <h2 class="section__title" id="lab-title" data-split>Ne me croyez pas.<br><em>Testez en direct.</em></h2>
+          </div>
+          <p class="section__sub" data-reveal>Deux expériences de vision par ordinateur qui tournent entièrement dans votre
+            navigateur : activez la webcam et déclenchez les pouvoirs avec votre corps. Aucune image ne quitte votre
+            appareil.</p>
+        </header>
+
+        <div class="lab__grid">
+          <article class="lab-card glass" style="--accent:#38bdf8" data-tilt data-reveal aria-labelledby="lab-naruto-title">
+            <div class="lab-card__media">
+              <img src="assets/lab/naruto-poster.webp" alt="Effets Rasengan et Chidori" width="1200" height="450"
+                loading="lazy" decoding="async">
+              <span class="lab-card__live"><i></i>Live · Webcam</span>
+              <span class="lab-card__tech mono">MediaPipe Hands · 21 points / main</span>
+            </div>
+            <div class="lab-card__body">
+              <p class="lab-card__kicker">Hand tracking temps réel</p>
+              <h3 class="lab-card__title" id="lab-naruto-title">Naruto — Rasengan &amp; Chidori</h3>
+              <p class="lab-card__desc">Ouvrez la main droite pour faire tourner un Rasengan, la gauche pour le Chidori de
+                Sasuke. Les effets suivent vos mains et se chargent selon votre geste.</p>
+              <ol class="lab-card__steps">
+                <li><b>1</b>Autorisez la webcam</li>
+                <li><b>2</b>Montrez vos mains</li>
+                <li><b>3</b>Ouvrez la main ✋</li>
+              </ol>
+              <button class="btn btn--primary" type="button" data-lab="naruto" id="lab-launch-naruto" data-magnetic>
+                Lancer la démo
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 5l12 7-12 7z" />
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="lab-card glass" style="--accent:#f2c46d" data-tilt data-reveal aria-labelledby="lab-dbz-title">
+            <div class="lab-card__media">
+              <img src="assets/lab/dbz-poster.webp" alt="Goku lançant un Kamehameha" width="708" height="531"
+                loading="lazy" decoding="async">
+              <span class="lab-card__live"><i></i>Live · Webcam</span>
+              <span class="lab-card__tech mono">MediaPipe Pose · 33 points du corps</span>
+            </div>
+            <div class="lab-card__body">
+              <p class="lab-card__kicker">Pose tracking · angles 3D des bras</p>
+              <h3 class="lab-card__title" id="lab-dbz-title">Dragon Ball Z — Kamehameha</h3>
+              <p class="lab-card__desc">Rapprochez vos poignets pour concentrer le ki, puis tendez les bras pour lancer le
+                Kamehameha. La direction du rayon suit la position de vos mains.</p>
+              <ol class="lab-card__steps">
+                <li><b>1</b>Reculez un peu</li>
+                <li><b>2</b>Poignets joints</li>
+                <li><b>3</b>Bras tendus 💥</li>
+              </ol>
+              <button class="btn btn--primary" type="button" data-lab="dbz" id="lab-launch-dbz" data-magnetic>
+                Lancer la démo
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 5l12 7-12 7z" />
+                </svg>
+              </button>
+            </div>
+          </article>
+        </div>
+        <p class="lab__note mono" data-reveal>🔒 Traitement 100 % local (WebAssembly + GPU) · Pas de webcam ? Un mode souris
+          est proposé dans la démo.</p>
+      </div>
+    </section>
+
     <!-- ===== STACK ===== -->
     <section class="section skills" id="skills" aria-labelledby="skills-title">
       <div class="container skills__grid">
         <div>
           <header class="section__head">
-            <p class="eyebrow" data-reveal>04 — Stack technique</p>
+            <p class="eyebrow" data-reveal>05 — Stack technique</p>
             <h2 class="section__title" id="skills-title" data-split>Mon arsenal</h2>
           </header>
           <div class="skill-groups">
@@ -328,7 +401,7 @@
     <section class="section certs" id="certifications" aria-labelledby="certs-title">
       <div class="container">
         <header class="section__head section__head--center">
-          <p class="eyebrow" data-reveal>05 — Certifications</p>
+          <p class="eyebrow" data-reveal>06 — Certifications</p>
           <h2 class="section__title" id="certs-title" data-split>16 certifications en orbite</h2>
           <p class="section__sub" data-reveal>Google, Meta, Amazon, IBM, HackerRank, Udemy… Chaque certificat se
             présente à tour de rôle. Glissez pour faire tourner le globe, cliquez pour l'ouvrir.</p>
@@ -399,7 +472,7 @@
     <section class="section contact" id="contact" aria-labelledby="contact-title">
       <div class="contact__glow" aria-hidden="true"></div>
       <div class="container contact__inner">
-        <p class="eyebrow" data-reveal>06 — Contact</p>
+        <p class="eyebrow" data-reveal>07 — Contact</p>
         <h2 class="contact__title" id="contact-title" data-split>Construisons quelque chose<br><em>d'exceptionnel.</em>
         </h2>
         <p class="section__sub" data-reveal>Missions full stack, backend, applications mobiles ou projets innovants avec
@@ -477,6 +550,54 @@
         <a class="btn btn--primary btn--sm" id="cert-dialog-verify" target="_blank" rel="noopener">Vérifier
           l'authenticité ↗</a>
       </footer>
+    </div>
+  </dialog>
+
+  <!-- ===== LAB : SCÈNE PLEIN ÉCRAN ===== -->
+  <dialog class="lab-dialog" id="lab-dialog" aria-labelledby="lab-dialog-title" data-lenis-prevent>
+    <div class="lab-stage">
+      <canvas class="lab-canvas" id="lab-canvas" aria-label="Rendu de la démo avec la webcam"></canvas>
+      <div class="lab-hud">
+        <header class="lab-hud__top">
+          <div class="lab-hud__title">
+            <p class="mono" id="lab-kicker"></p>
+            <h3 id="lab-dialog-title"></h3>
+          </div>
+          <div class="lab-hud__actions">
+            <button class="lab-chip" type="button" id="lab-mode">
+              <span class="lab-chip__cam">🖱️ Mode souris</span><span class="lab-chip__ptr">📷 Webcam</span>
+            </button>
+            <button class="icon-btn" type="button" id="lab-skeleton" aria-pressed="true" aria-label="Afficher le squelette de suivi">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="5" r="2" />
+                <path d="M12 7v7m0 0-4 6m4-6 4 6M6 10l6-1 6 1" />
+              </svg>
+            </button>
+            <button class="icon-btn" type="button" id="lab-close" aria-label="Fermer la démo">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 6l12 12M18 6 6 18" />
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="lab-status glass" id="lab-status" role="status" hidden>
+          <span class="lab-status__spin" aria-hidden="true"></span>
+          <p id="lab-status-text"></p>
+          <div class="lab-status__actions" id="lab-status-actions" hidden>
+            <button class="btn btn--primary btn--sm" type="button" id="lab-retry">Réessayer la webcam</button>
+            <button class="btn btn--ghost btn--sm" type="button" id="lab-pointer">Jouer à la souris</button>
+          </div>
+        </div>
+
+        <footer class="lab-hud__bottom">
+          <p class="lab-hint" id="lab-hint" aria-live="polite"></p>
+          <div class="lab-meter">
+            <span class="mono" id="lab-meter-label">Énergie</span>
+            <div class="lab-meter__bar"><i id="lab-meter-fill"></i></div>
+          </div>
+        </footer>
+      </div>
     </div>
   </dialog>
 
