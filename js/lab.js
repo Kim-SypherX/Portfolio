@@ -365,11 +365,19 @@ export function initLab({ onOpen, onClose } = {}) {
     if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
       throw Object.assign(new Error('insecure'), { name: 'InsecureContext' });
     }
-    S.stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false,
-    });
-    cam.srcObject = S.stream;
-    await cam.play();
+    // Idempotent : on réutilise le flux ouvert, ou la demande déjà en cours
+    if (S.stream?.active) { if (cam.paused) await cam.play().catch(() => {}); return; }
+    S.camPromise ??= (async () => {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false,
+      });
+      // Scène fermée entre-temps : on libère aussitôt la webcam
+      if (!dlg.open) { stream.getTracks().forEach((t) => t.stop()); return; }
+      S.stream = stream;
+      cam.srcObject = stream;
+      await cam.play().catch(() => {});
+    })().finally(() => { S.camPromise = null; });
+    return S.camPromise;
   }
 
   function cameraError(err) {
@@ -499,7 +507,7 @@ export function initLab({ onOpen, onClose } = {}) {
     toCanvas(e);
     pointer.down = true;
     pointer.alt = e.shiftKey || e.button === 2;
-    canvas.setPointerCapture?.(e.pointerId);
+    try { canvas.setPointerCapture?.(e.pointerId); } catch (_) { /* pointeur synthétique */ }
   });
   const up = () => { pointer.down = false; };
   canvas.addEventListener('pointerup', up);
@@ -514,13 +522,45 @@ export function initLab({ onOpen, onClose } = {}) {
     S.skeleton = !S.skeleton;
     ui.skeleton.setAttribute('aria-pressed', String(S.skeleton));
   });
-  dlg.addEventListener('close', () => { close(); onClose?.(); });
+  // L'événement « close » est asynchrone : si une autre démo a déjà rouvert la scène, on ne nettoie rien
+  dlg.addEventListener('close', () => { if (dlg.open) return; close(); onClose?.(); });
 
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-lab]');
     if (!btn) return;
     e.preventDefault();
-    launch(btn.dataset.lab);
+    if (btn.dataset.lab === 'car') openGame();
+    else launch(btn.dataset.lab);
+  });
+
+  // ---------- Jeu complet embarqué (Virtual Car Game) ----------
+  const gameDlg = document.getElementById('game-dialog');
+  const gameFrame = document.getElementById('game-frame');
+  const gameLoading = document.getElementById('game-loading');
+  const GAME_URL = 'lab/virtual-car-game/index.html';
+  function openGame() {
+    if (!gameDlg || !gameFrame) return;
+    gameLoading.hidden = false;
+    gameFrame.src = GAME_URL;
+    gameDlg.showModal();
+    onOpen?.();
+  }
+  gameFrame?.addEventListener('load', () => {
+    if (!gameFrame.src || gameFrame.src === 'about:blank') return;
+    gameLoading.hidden = true;
+    // Focus dans le jeu pour que le clavier fonctionne immédiatement
+    try { gameFrame.contentWindow.focus(); } catch (_) { /* noop */ }
+  });
+  document.getElementById('game-close')?.addEventListener('click', () => gameDlg.close());
+  document.getElementById('game-fullscreen')?.addEventListener('click', () => {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else gameDlg.requestFullscreen?.().catch(() => {});
+  });
+  gameDlg?.addEventListener('close', () => {
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    // Décharger l'iframe coupe la webcam et la boucle 3D du jeu
+    gameFrame.src = 'about:blank';
+    onClose?.();
   });
 
   // Préchargement discret de MediaPipe quand la section Lab approche

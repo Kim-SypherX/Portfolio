@@ -216,35 +216,12 @@ export function initHero3D(canvas) {
   const dustPts = new THREE.Points(dGeo, dMat);
   scene.add(dustPts);
 
-  // ---------- Bloom (desktop uniquement, chargé à la demande) ----------
-  let composer = null;
-  async function setupBloom() {
-    if (reduce || innerWidth < 900) return;
-    try {
-      const [{ EffectComposer }, { RenderPass }, { UnrealBloomPass }] = await Promise.all([
-        import('three/addons/postprocessing/EffectComposer.js'),
-        import('three/addons/postprocessing/RenderPass.js'),
-        import('three/addons/postprocessing/UnrealBloomPass.js'),
-      ]);
-      const w = canvas.clientWidth, h = canvas.clientHeight;
-      renderer.setClearColor(0x05060b, 1);
-      const c = new EffectComposer(renderer);
-      c.addPass(new RenderPass(scene, camera));
-      c.addPass(new UnrealBloomPass(new THREE.Vector2(w, h), 0.55, 0.6, 0.22));
-      c.setSize(w, h);
-      composer = c;
-    } catch (e) {
-      console.warn('Bloom indisponible :', e);
-    }
-  }
-  setupBloom();
 
   // ---------- Layout / resize ----------
   const base = { x: 3.1, y: 0.1, s: 1 };
   function layout() {
     const w = canvas.clientWidth, h = canvas.clientHeight;
     renderer.setSize(w, h, false);
-    composer?.setSize(w, h);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     const mobile = w < 900;
@@ -340,8 +317,7 @@ export function initHero3D(canvas) {
 
     updateMouseInGalaxy();
 
-    if (composer) composer.render();
-    else renderer.render(scene, camera);
+    renderer.render(scene, camera);
   }
   function loop() {
     cancelAnimationFrame(raf);

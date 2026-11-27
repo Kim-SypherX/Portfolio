@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jeu de Voiture Virtuel (MediaPipe & Three.js)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="./assets/index-B1lqa7wM.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DO_85rO_.css">
+</head>
+
+<body>
+  <!-- Conteneur pour le jeu 3D (Three.js) -->
+  <div id="game-container"></div>
+
+  <!-- Notification de changement de biome -->
+  <div id="biome-name" class="biome-notif"></div>
+
+  <!-- HUD : Interface Utilisateur -->
+  <div id="hud">
+    <div class="hud-panel left-panel">
+      <div class="speed-label">VITESSE</div>
+      <div class="speed-value"><span id="speed">0</span> KM/H</div>
+      <div class="distance-label">DISTANCE</div>
+      <div class="distance-value"><span id="distance">0</span> M</div>
+      <div class="coin-label">🪙 PIÈCES</div>
+      <div class="coin-value"><span id="coin-count">0</span></div>
+    </div>
+
+    <div class="hud-panel center-panel">
+      <img src="./volant.jpg" class="steering-wheel" id="steering-wheel" alt="Volant">
+    </div>
+
+    <div class="hud-panel right-panel">
+      <!-- Image des pédales -->
+      <img src="./pedales.webp" class="pedals-image" alt="Pedales">
+      <div class="pedal-status" id="pedal-status">EN ATTENTE</div>
+      <div class="turbo-container">
+        <div class="turbo-label">⚡ TURBO</div>
+        <div class="turbo-bar-bg">
+          <div class="turbo-bar-fill" id="turbo-bar"></div>
+        </div>
+        <div class="turbo-percent" id="turbo-percent">0%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Retour Webcam et Détection (MediaPipe) -->
+  <div class="camera-feed">
+    <video id="webcam" autoplay playsinline></video>
+    <canvas id="output_canvas"></canvas>
+    <button id="enableWebcamButton" class="start-btn">Activer Caméra &amp; Jouer</button>
+    <button id="keyboardButton" class="start-btn start-btn--alt">⌨️ Jouer au clavier</button>
+  </div>
+
+  <!-- Script Principal -->
+</body>
+
+</html>

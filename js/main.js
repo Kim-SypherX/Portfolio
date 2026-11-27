@@ -21,8 +21,9 @@ function renderProjects() {
 
   featured.innerHTML = PROJECTS.filter((p) => p.featured).map((p, i) => `
     <article class="fproject" style="--accent:${p.accent}" aria-labelledby="fp-${p.id}">
-      <div class="fproject__media" data-parallax data-side="${i % 2 ? 1 : -1}" data-cursor="Explorer">
+      <div class="fproject__media" data-parallax data-side="${i % 2 ? 1 : -1}" data-cursor="${p.link ? 'Visiter' : 'Explorer'}">
         <div class="fproject__img"><img src="${p.img}" alt="Visuel du projet ${p.name}" width="1200" height="896" loading="lazy" decoding="async"></div>
+        ${p.link ? `<span class="fproject__live"><span class="pulse-dot"></span>En ligne</span><a class="fproject__cover-link" href="${p.link}" target="_blank" rel="noopener" aria-label="Visiter ${p.name}"></a>` : ''}
         <span class="fproject__num">${String(i + 1).padStart(2, '0')}</span>
         <span class="fproject__chip">${p.tags.map((t) => chipLabel[t]).join(' · ')}</span>
       </div>
@@ -32,6 +33,10 @@ function renderProjects() {
         <p class="fproject__desc" data-reveal>${p.desc}</p>
         <ul class="fproject__hl" data-reveal>${p.highlights.map((h) => `<li>${h}</li>`).join('')}</ul>
         <div class="stack" data-reveal>${p.stack.map((s) => `<span>${s}</span>`).join('')}</div>
+        ${p.demo || p.link ? `<div class="fproject__actions" data-reveal>
+          ${p.demo ? `<button class="btn btn--primary" type="button" data-lab="${p.demo}" data-magnetic>Jouer maintenant ▶</button>` : ''}
+          ${p.link ? `<a class="btn btn--primary" href="${p.link}" target="_blank" rel="noopener" data-magnetic>${p.linkLabel || 'Visiter le site'}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg></a>` : ''}
+        </div>` : ''}
       </div>
     </article>`).join('');
 

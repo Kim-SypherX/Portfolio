@@ -1,112 +1,57 @@
-# Portfolio 3D Interactif
+# Portfolio — Kim Josaphat YARGA
 
-Portfolio ultra-haut de gamme avec environnement 3D WebGL, effets cyberpunk et animations cinématiques.
+Portfolio 3D interactif : galaxie WebGL, globe de certifications autour de ma photo, projets animés en 3D au scroll et un **Lab** où l'on teste mes projets de vision par ordinateur directement dans le navigateur.
 
-## 🚀 Démo en Direct
+🔗 **Démo :** [kim-sypherx.github.io/Portfolio](https://kim-sypherx.github.io/Portfolio)
 
-Visitez le portfolio : [https://kim-sypherx.github.io/Portfolio](https://kim-sypherx.github.io/Portfolio)
+## ✨ Points forts
 
-## ✨ Caractéristiques
-
-- **Environnement 3D complet** avec Three.js et WebGL
-- **Shaders personnalisés** (glitch, hologramme, néon)
-- **Curseur personnalisé** avec effets magnétiques et traînée lumineuse
-- **9 catégories de compétences** complètes
-- **6 projets réels** présentés
-- **Animations fluides** avec physique de ressort
-- **Design cyberpunk** avec glassmorphisme et néons
-
-## 🛠️ Technologies
-
-- HTML5, CSS3, JavaScript (ES6+)
-- Three.js pour le rendu 3D
-- GLSL pour les shaders personnalisés
-- Vanilla JS (zéro dépendance framework)
+- **Hero Three.js** : galaxie de 14 000 particules qui réagit au curseur, noyau organique (shaders GLSL), travelling d'intro
+- **Smooth scroll** (Lenis) + animations liées au scroll : entrée 3D des projets, parallaxe, marquee sensible à la vitesse
+- **Globe de certifications** : 16 certificats en hélice sphérique autour de mon portrait détouré (CSS 3D piloté en JS)
+- **Lab interactif** (webcam, 100 % local, WebAssembly + GPU) :
+  - **Naruto** : Rasengan / Chidori par hand tracking (MediaPipe Hands)
+  - **Dragon Ball Z** : charge + Kamehameha par pose tracking (MediaPipe Pose)
+  - **Virtual Car Game** : jeu de course 3D complet, piloté à la main ou au clavier
+  - Mode souris / clavier si aucune webcam n'est disponible
 
 ## 📂 Structure
 
 ```
 Portfolio/
-├── index.html              # Page principale
-├── styles.css              # Système de design CSS
+├── index.html            # Page principale
+├── cv.html               # Version web du CV
+├── styles.css            # Design system + animations
 ├── js/
-│   ├── main.js            # Coordinateur d'application
-│   ├── scene.js           # Gestionnaire de scène Three.js
-│   ├── animations.js      # Contrôleur d'animations
-│   ├── cursor.js          # Système de curseur personnalisé
-│   ├── loader.js          # Écran de chargement
-│   ├── hero.js            # Section héro 3D
-│   ├── about.js           # Section à propos
-│   ├── skills.js          # Section compétences
-│   ├── projects.js        # Section projets
-│   ├── contact.js         # Section contact
-│   ├── utils.js           # Fonctions utilitaires
-│   └── shaders/
-│       ├── glitch.js      # Shader glitch
-│       ├── hologram.js    # Shader hologramme
-│       └── neon.js        # Shader néon
-└── assets/
-    └── images/            # Images des projets
+│   ├── main.js           # Orchestration, smooth scroll, moteur de mouvement
+│   ├── data.js           # Projets, certifications, technologies
+│   ├── hero3d.js         # Scène Three.js du hero
+│   ├── certs.js          # Globe des certifications
+│   ├── sphere.js         # Nuage 3D de compétences
+│   └── lab.js            # Démos webcam Naruto / DBZ + jeu embarqué
+├── lab/virtual-car-game/ # Build Vite du jeu (généré, ne pas éditer)
+└── assets/               # Images, certificats, vidéos d'effets, CV PDF
 ```
 
-## 🚀 Déploiement Local
+## 🛠️ Lancer en local
 
-1. Clonez le repository :
+Les modules ES et la webcam imposent un serveur (pas d'ouverture en `file://`) :
+
 ```bash
-git clone https://github.com/Kim-SypherX/Portfolio.git
-cd Portfolio
+python3 -m http.server 8000
+# puis http://localhost:8000
 ```
 
-2. Ouvrez `index.html` dans un navigateur moderne
+> La webcam ne fonctionne qu'en `https` ou sur `localhost`.
 
-Ou utilisez un serveur local :
+## 🔄 Mettre à jour le jeu Virtual Car Game
+
+Depuis `../Virtual_Car_Game` :
+
 ```bash
-# Python 3
-python -m http.server 8000
-
-# Node.js
-npx http-server -p 8000
+npx vite build --base ./ --outDir ../Portfolio/lab/virtual-car-game --emptyOutDir
 ```
 
-## 🎨 Personnalisation
+## 🧰 Technologies
 
-### Modifier les informations personnelles
-Éditez `index.html` pour mettre à jour :
-- Nom et titre (lignes 70-71)
-- Sections About, Skills, Projects
-- Liens de contact
-
-### Changer les couleurs
-Modifiez les variables CSS dans `styles.css` (lignes 10-30) :
-```css
---color-neon-cyan: #00f0ff;
---color-neon-magenta: #ff00ff;
---color-neon-purple: #b000ff;
-```
-
-### Ajouter des projets
-1. Ajoutez l'image dans `assets/images/`
-2. Ajoutez une carte de projet dans `index.html` (section projets)
-3. Mettez à jour `js/projects.js` si nécessaire
-
-## 📱 Compatibilité
-
-- Chrome 90+ ✅
-- Firefox 88+ ✅
-- Edge 90+ ✅
-- Safari 14+ ✅
-
-**Requis** : WebGL, ES6+, CSS Grid, Backdrop-filter
-
-## 📄 Licence
-
-Ce portfolio est un projet personnel. Libre d'utilisation pour inspiration.
-
-## 👤 Auteur
-
-**Yempounti Kim Josaphat Geoffroi YARGA**  
-Développeur Full-Stack / Creative Technologist
-
----
-
-© 2026 Yempounti Kim Josaphat Geoffroi YARGA. Élite par conception.
+HTML5 · CSS3 · JavaScript (ES modules, zéro framework) · Three.js · GLSL · Lenis · MediaPipe Tasks Vision · Canvas 2D
